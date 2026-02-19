@@ -101,6 +101,11 @@
       padding: 0;
     }
 
+    .menu-item {
+      position: relative;
+      /* Needed for dropdown positioning */
+    }
+
     .menu-link {
       text-decoration: none;
       color: inherit;
@@ -109,9 +114,73 @@
       font-size: 1.2rem;
       transition: opacity 0.2s ease;
       opacity: 0.7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .menu-link:hover {
+    .menu-link:hover,
+    .has-dropdown:hover .menu-link {
+      opacity: 1;
+    }
+
+    /* Dropdown Styles */
+    .dropdown-trigger .dropdown-arrow {
+      transition: transform 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .has-dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: var(--nav-bg, rgba(48, 48, 48, 0.95));
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border-color, rgba(255, 255, 255, 0.1));
+      border-radius: 12px;
+      padding: 0.75rem;
+      list-style: none;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .has-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-item {
+      margin-bottom: 4px;
+    }
+
+    .dropdown-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .dropdown-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--nav-text-color, #f4f2ee);
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
+      opacity: 0.8;
+    }
+
+    .dropdown-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
       opacity: 1;
     }
 
@@ -157,14 +226,199 @@
       transform: translate(2px, -2px);
     }
 
-    @media (max-width: 768px) {
+    /* Hamburger Button (Default hidden) */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1100;
+      /* Higher than menu overlay */
+      position: relative;
+    }
+
+    .hamburger-btn span {
+      width: 100%;
+      height: 2px;
+      background-color: var(--nav-text-color, #f4f2ee);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hamburger Animation */
+    .hamburger-btn.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: #000000;
+      z-index: 1050;
+      /* Between nav (1000) and hamburger (1100)? No, nav is 1000. Overlay should be above nav content but below hamburger? 
+                         Wait, nav-container has z-index. Host has z-index 1000.
+                         If overlay is outside nav-container (it is), it needs high z-index. 
+                         */
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+      /* visibility delay */
+      visibility: hidden;
+    }
+
+    @media (min-width: 901px) {
+      .mobile-menu-overlay {
+        display: none !important;
+      }
+    }
+
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+      transition: opacity 0.3s ease;
+    }
+
+    .close-menu-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1100;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      opacity: 0.8;
+    }
+
+    .close-menu-btn:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    .close-menu-btn svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .mobile-menu-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 2rem;
+      font-family: 'Bebas Neue', var(--nav-font, sans-serif);
+      color: #ffffff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav-link:hover {
+      color: var(--color-1, #E85D04);
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .mobile-submenu.open {
+      max-height: 500px;
+      /* Enough for list */
+      opacity: 1;
+      margin-bottom: 1rem;
+    }
+
+    .mobile-submenu-link {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      text-transform: none;
+      transition: color 0.2s;
+      font-family: var(--nav-font, sans-serif);
+    }
+
+    .mobile-submenu-link:hover {
+      color: #ffffff;
+    }
+
+    .mobile-cta {
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+    }
+
+    @media (max-width: 900px) {
+
+      /* Reset host display from previous hide */
+      :host {
+        display: block !important;
+      }
 
       .nav-center,
-      .lang-picker {
-        display: none;
+      .lang-picker,
+      .nav-right>.cta-button {
+        display: none !important;
+      }
+
+      .hamburger-btn {
+        display: flex;
       }
 
       .nav-container {
-        padding: 0.5rem 1rem;
+        padding: 1rem;
       }
     }

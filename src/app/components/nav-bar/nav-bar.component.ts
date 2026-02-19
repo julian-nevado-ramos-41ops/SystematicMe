@@ -6,6 +6,7 @@ export interface NavCommand {
     action?: () => void;
     link?: string;
     icon?: string;
+    children?: NavCommand[];
 }
 
 export interface NavLogo {
@@ -61,6 +62,12 @@ export class NavBarComponent {
 
         const currentScroll = window.scrollY || document.documentElement.scrollTop;
 
+        // Don't hide if mobile menu is open
+        if (this.mobileMenuOpen()) {
+            this.isHidden.set(false);
+            return;
+        }
+
         // Always show when at the very top
         if (currentScroll < this.TOP_THRESHOLD) {
             this.isHidden.set(false);
@@ -109,4 +116,26 @@ export class NavBarComponent {
     hasLogoSlot = false; // Placeholder for future expansion
     hasMenuSlot = false;
     hasActionsSlot = false;
+
+    // Mobile Menu Logic
+    mobileMenuOpen = signal(false);
+    expandedSubmenu = signal<string | null>(null);
+
+    toggleMobileMenu() {
+        this.mobileMenuOpen.set(!this.mobileMenuOpen());
+        if (!this.mobileMenuOpen()) {
+            this.expandedSubmenu.set(null);
+        }
+    }
+
+    closeMobileMenu() {
+        this.mobileMenuOpen.set(false);
+        this.expandedSubmenu.set(null);
+    }
+
+    toggleSubmenu(label: string, event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.expandedSubmenu.set(this.expandedSubmenu() === label ? null : label);
+    }
 }

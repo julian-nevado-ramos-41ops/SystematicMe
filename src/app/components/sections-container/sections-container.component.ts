@@ -100,10 +100,15 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
       right: 2rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       :host {
         margin: 0 1rem;
         border-radius: 16px;
+      }
+
+      app-spacebar-button,
+      app-section-indicator {
+        display: none;
       }
     }
 

@@ -178,9 +178,11 @@ export class AccordionComponent implements AfterViewInit, OnDestroy {
 
     /** Toggle a scroll-mode card's expanded state */
     toggleScrollCard(index: number): void {
-        this.expandedScrollCard.set(
-            this.expandedScrollCard() === index ? -1 : index
-        );
+        if (this.expandedScrollCard() === index) {
+            this.expandedScrollCard.set(-1);
+        } else {
+            this.expandedScrollCard.set(index);
+        }
     }
 
     /** Copy prompt text to clipboard */

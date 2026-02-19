@@ -138,6 +138,21 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
       margin-top: 6rem;
       max-width: 600px;
     }
+
+    @media (max-width: 900px) {
+      .hero-description {
+        margin-top: 2rem;
+        margin-bottom: 4rem; /* Ensure space for the next section */
+      }
+      
+      :host {
+         height: auto;
+         min-height: 90vh;
+         padding-bottom: 4rem;
+         align-items: flex-start; /* Align top on mobile */
+         padding-top: 20vh; /* Visual spacing from top */
+      }
+    }
     
     .bracket {
       font-weight: 700;

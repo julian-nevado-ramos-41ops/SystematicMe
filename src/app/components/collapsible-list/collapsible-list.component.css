@@ -170,4 +170,44 @@
     .item-paragraph {
         font-size: 1rem;
     }
+
+    .item-paragraph {
+        font-size: 1rem;
+    }
+
+    /* 2-column grid layout on mobile */
+    .collapsible-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .collapsible-row {
+        border-bottom: none;
+        /* remove standard border */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* box style */
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+
+    /* Active row spans full width */
+    .collapsible-row.active {
+        grid-column: 1 / -1;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .row-header {
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+    }
+
+    .item-title {
+        font-size: 1.2rem;
+    }
+
+    .plus-icon {
+        font-size: 1.2rem;
+        min-width: 1.2rem;
+    }
 }

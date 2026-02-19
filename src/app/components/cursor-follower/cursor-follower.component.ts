@@ -48,6 +48,12 @@ import { Component, ChangeDetectionStrategy, signal, afterNextRender, OnDestroy 
       width: 100%;
       height: 2px;
     }
+
+    @media (max-width: 900px) {
+      :host {
+        display: none;
+      }
+    }
   `,
 })
 export class CursorFollowerComponent implements OnDestroy {

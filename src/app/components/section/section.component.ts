@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed, booleanAttribute } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } from '@angular/core';
 
 @Component({
   selector: 'app-section',
@@ -19,6 +19,12 @@ import { Component, ChangeDetectionStrategy, input, computed, booleanAttribute }
           @if (subtitle()) {
             <p class="section-subtitle">{{ subtitle() }}</p>
           }
+          @if (modalContent()) {
+            <button class="see-more-btn" (click)="openModal($event)">
+              <span class="see-more-text">See more</span>
+              <span class="see-more-arrow">→</span>
+            </button>
+          }
         </div>
         @if (image()) {
           <div class="section-image-container">
@@ -32,6 +38,8 @@ import { Component, ChangeDetectionStrategy, input, computed, booleanAttribute }
         <ng-content />
       </div>
     </div>
+
+
   `,
   styles: [`
     :host {
@@ -173,6 +181,49 @@ import { Component, ChangeDetectionStrategy, input, computed, booleanAttribute }
       opacity: 0.9;
     }
 
+    /* ─── See More Button ─── */
+    .see-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 2rem;
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      color: #ffffff;
+      font-family: 'PP Supply Mono Regular', 'Courier New', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+
+    .see-more-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateX(4px);
+    }
+
+    .see-more-btn:active {
+      transform: translateX(2px);
+    }
+
+    .see-more-arrow {
+      transition: transform 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .see-more-btn:hover .see-more-arrow {
+      transform: translateX(4px);
+    }
+
+
+
     .section-image-container {
       flex: 1.5; /* Give more space to image relative to text */
       display: flex;
@@ -225,6 +276,11 @@ import { Component, ChangeDetectionStrategy, input, computed, booleanAttribute }
       :host {
         padding-right: 10%; /* Reset padding on mobile */
       }
+
+      .modal-container {
+        padding: 2rem 1.5rem;
+        width: 95%;
+      }
     }
     
     .content-slot {
@@ -239,8 +295,23 @@ export class SectionComponent {
   subtitle = input('');
   image = input<string | undefined>();
   backgroundColor = input('var(--color-1)');
+  modalContent = input<string | undefined>();
   isAccordionSection = input(false, { transform: booleanAttribute });
   fullWidth = input(false, { transform: booleanAttribute });
   isVisible = input(false);
   isFolded = input(false);
+
+  requestModal = output<{ title: string, content: string, color: string }>();
+
+  openModal(event: Event) {
+    event.stopPropagation();
+    const content = this.modalContent();
+    if (content) {
+      this.requestModal.emit({
+        title: this.title(),
+        content: content,
+        color: this.backgroundColor()
+      });
+    }
+  }
 }

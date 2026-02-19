@@ -23,10 +23,29 @@
         @if (!hasMenuSlot && menuItems().length > 0) {
         <ul class="menu-list">
             @for (item of menuItems(); track item.label) {
-            <li class="menu-item">
+            <li class="menu-item" [class.has-dropdown]="item.children?.length">
+                @if (item.children?.length) {
+                <div class="menu-link dropdown-trigger">
+                    {{ item.label }}
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" class="dropdown-arrow">
+                        <path d="M1 1L5 5L9 1" />
+                    </svg>
+                </div>
+                <ul class="dropdown-menu">
+                    @for (child of item.children; track child.label) {
+                    <li class="dropdown-item">
+                        <a [href]="child.link" class="dropdown-link" target="_blank" rel="noopener noreferrer">
+                            {{ child.label }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+                } @else {
                 <a [href]="item.link" class="menu-link">
                     {{ item.label }}
                 </a>
+                }
             </li>
             }
         </ul>
@@ -35,6 +54,14 @@
 
     <!-- Right: Actions Slot or Default -->
     <div class="nav-right">
+        <!-- Hamburger Menu (Mobile Only) -->
+        <button class="hamburger-btn" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen()"
+            [style.visibility]="mobileMenuOpen() ? 'hidden' : 'visible'" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <ng-content select="[nav-actions]"></ng-content>
         @if (!hasActionsSlot) {
         @if (showLangPicker()) {
@@ -60,3 +87,55 @@
         }
     </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" [class.open]="mobileMenuOpen()">
+    <button class="close-menu-btn" (click)="closeMobileMenu()" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+    <div class="mobile-menu-content">
+        <ul class="mobile-nav-list">
+            @for (item of menuItems(); track item.label) {
+            <li class="mobile-nav-item" [class.has-children]="item.children?.length">
+                @if (item.children?.length) {
+                <div class="mobile-nav-link dropdown-toggle" (click)="toggleSubmenu(item.label, $event)">
+                    {{ item.label }}
+                    <svg width="12" height="8" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="2"
+                        [style.transform]="expandedSubmenu() === item.label ? 'rotate(180deg)' : 'rotate(0)'"
+                        style="transition: transform 0.3s ease;">
+                        <path d="M1 1L5 5L9 1" />
+                    </svg>
+                </div>
+                <ul class="mobile-submenu" [class.open]="expandedSubmenu() === item.label">
+                    @for (child of item.children; track child.label) {
+                    <li class="mobile-submenu-item">
+                        <a [href]="child.link" class="mobile-submenu-link" target="_blank" rel="noopener noreferrer"
+                            (click)="closeMobileMenu()">
+                            {{ child.label }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+                } @else {
+                <a [href]="item.link" class="mobile-nav-link" (click)="closeMobileMenu()">
+                    {{ item.label }}
+                </a>
+                }
+            </li>
+            }
+        </ul>
+
+        <!-- Mobile Actions Copy -->
+        <div class="mobile-actions">
+            @if (cta()) {
+            <a [href]="cta()?.link" class="cta-button mobile-cta" (click)="closeMobileMenu()">
+                {{ cta()?.label }}
+            </a>
+            }
+        </div>
+    </div>
+</div>
