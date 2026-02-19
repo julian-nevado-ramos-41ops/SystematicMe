@@ -34,7 +34,7 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
                 <ng-content />
             </div>
 
-            <div class="container-ui">
+            <div class="container-ui" [class.ui-hidden]="!isIntersecting()">
                 <app-side-nav
                     [totalSections]="totalSections()"
                     [currentSection]="currentIndex()"
@@ -73,6 +73,13 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
       margin-top: -100vh;
       pointer-events: none;
       z-index: 100;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+
+    .container-ui.ui-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .container-ui app-side-nav,
@@ -170,6 +177,7 @@ export class SectionsContainerComponent implements OnDestroy {
     protected currentIndex = signal(0);
     private sections: Element[] = [];
     protected totalSections = signal(0);
+    protected isIntersecting = signal(false);
     private observer: IntersectionObserver | null = null;
 
     /* Horizontal helpers */
@@ -364,10 +372,11 @@ export class SectionsContainerComponent implements OnDestroy {
         const visibilityObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
+                    this.isIntersecting.set(entry.isIntersecting);
                     this.containerVisible.emit(entry.isIntersecting);
                 });
             },
-            { root: null, threshold: 0.1 }
+            { root: null, threshold: 0.15 }
         );
         visibilityObserver.observe(container);
     }

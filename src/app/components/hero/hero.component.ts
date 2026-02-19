@@ -43,7 +43,6 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
       color: #1a1a1a;
       position: relative;
       overflow: hidden;
-      scroll-snap-align: start;
       margin-top: 5%;
     }
 
@@ -142,15 +141,16 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
     @media (max-width: 900px) {
       .hero-description {
         margin-top: 2rem;
-        margin-bottom: 4rem; /* Ensure space for the next section */
+        margin-bottom: 2rem;
       }
       
       :host {
-         height: auto;
-         min-height: 90vh;
-         padding-bottom: 4rem;
-         align-items: flex-start; /* Align top on mobile */
-         padding-top: 20vh; /* Visual spacing from top */
+         height: 100vh; /* Occupy full screen */
+         min-height: 100vh;
+         padding-bottom: 0;
+         align-items: center; /* Center to use padding-top effectively */
+         padding-top: 15vh; /* Push content down slightly more */
+         margin-top: 0;
       }
     }
     

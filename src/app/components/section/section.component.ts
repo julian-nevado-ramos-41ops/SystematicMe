@@ -48,8 +48,8 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      padding-left: 10%;
-      padding-right: 0;
+      padding-left: 12%;
+      padding-right: 12%;
       position: relative;
       overflow: hidden;
       scroll-snap-align: start;
@@ -101,11 +101,10 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
     }
 
     .section-content.align-start {
-      flex-direction: column; /* Stack title and content vertically */
-      align-items: flex-start;
+      flex-direction: column !important; /* Stack title and content vertically */
+      align-items: flex-start !important;
       justify-content: flex-start;
-      justify-content: flex-start;
-      gap: 2rem; /* Reduced margin back to avoid pushing content too far */
+      gap: 3rem; /* Increased margin for clearer separation */
     }
 
     .section-content.align-start .text-container {
@@ -119,6 +118,7 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
     .section-content.align-start .content-slot {
       width: 100%;
       flex: 1;
+      align-items: flex-start;
     }
 
     .section-content.has-image {
@@ -253,6 +253,32 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
         flex-direction: column;
         align-items: flex-start;
         gap: 2rem;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* When only title + see-more (no accordion/image), center everything */
+      .section-content.align-start {
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center;
+      }
+
+      .section-content.align-start .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .section-content.align-start .content-slot:empty {
+        display: none;
+      }
+
+      .section-content.align-start .content-slot {
+        flex: none; /* Don't let empty slot push text up */
       }
       
       .text-container {
@@ -271,6 +297,9 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
 
       .content-slot {
         width: 100%;
+        flex: 1;
+        min-height: 0; /* Allow flex child to shrink below content size */
+        overflow: hidden; /* Clip accordion overflow */
       }
 
       :host {
@@ -286,6 +315,10 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } f
     .content-slot {
       flex: 1;
       min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
   `],
 })

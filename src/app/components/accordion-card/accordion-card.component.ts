@@ -47,17 +47,17 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
     }
 
     .card-content {
-      padding: 40px 60px;
+      padding: 2rem 5%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 5%;
+      justify-content: flex-start !important;
       opacity: 1;
       transition: opacity 0.3s ease;
-      max-width: 600px;
+      max-width: 100%;
       box-sizing: border-box;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     :host.collapsed .card-content {
@@ -92,11 +92,29 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
     }
 
     h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 400;
-      margin: 0 0 1.5rem 0;
+      margin: 3rem 0 2rem 0;
       font-family: 'Bebas Neue', 'Impact', sans-serif;
       color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .card-content p, 
+    .card-content ul {
+      font-size: 2.2rem;
+      line-height: 1.5;
+      color: #ffffff;
+      margin-bottom: 3rem;
+    }
+
+    .card-content ul {
+      list-style-type: disc;
+      padding-left: 2.5rem;
+    }
+
+    .card-content li {
+      margin-bottom: 3rem;
     }
 
     @media (max-width: 768px) {
@@ -106,22 +124,55 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
         flex: none;
         height: 200px;
         width: 100%;
+        overflow: hidden;
+        border-radius: 12px;
       }
 
       :host.expanded {
-        height: 400px;
+        flex: 1; /* Fill remaining space within the accordion */
+        height: auto;
+        min-height: 0; /* Allow shrinking below content size */
+        overflow: hidden;
+        border-radius: 12px;
       }
 
-      .vertical-title {
+      /* On mobile collapsed: show title horizontally with vertical breathing room */
+      :host.collapsed .vertical-title {
+        display: block;
+        position: static;
+        transform: none;
+        opacity: 1;
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 1.5rem 2rem;
+        text-align: left;
+        white-space: normal;
+        overflow: hidden;
+        line-height: 1.2;
+      }
+
+      /* Hide content when collapsed */
+      :host.collapsed .card-content {
         display: none;
       }
 
-      :host.collapsed .card-content {
+      :host.collapsed {
         display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      /* Expanded card content scrolls inside */
+      :host.expanded .card-content {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
+        max-height: 100%;
+        padding: 1.5rem 2rem;
       }
 
       .card-content {
-        padding: 30px;
+        padding: 20px 30px;
       }
     }
   `,
@@ -133,8 +184,6 @@ export class AccordionCardComponent {
   anyExpanded = signal(false);
 
   onClick() {
-    if (!this.expanded()) {
-      this.clicked.emit();
-    }
+    this.clicked.emit();
   }
 }

@@ -140,7 +140,7 @@
       top: 100%;
       left: 50%;
       transform: translateX(-50%) translateY(10px);
-      background-color: var(--nav-bg, rgba(48, 48, 48, 0.95));
+      background-color: var(--nav-bg, rgba(48, 48, 48, 1));
       backdrop-filter: blur(20px);
       border: 1px solid var(--nav-border-color, rgba(255, 255, 255, 0.1));
       border-radius: 12px;

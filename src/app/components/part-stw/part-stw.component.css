@@ -4,84 +4,109 @@
 }
 
 .stw-container {
-    padding: 60px 5%;
+    padding: 0 5% 100px 5%;
     display: flex;
     justify-content: center;
     background-color: var(--stw-bg-color, #F3F1E7);
-    /* Fallback */
+    color: #1a1a1a;
+    min-height: 60vh;
+    align-items: flex-start;
+    padding-top: 4rem;
+    /* Standard separation from previous section */
 }
 
 .content-wrapper {
-    max-width: 1400px;
+    max-width: 900px;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 80px;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    /* Keep body left aligned but centered container */
+    gap: 0;
 }
 
-.title-col {
-    flex: 1;
-    max-width: 50%;
-}
-
-.desc-col {
-    flex: 1;
-    max-width: 50%;
-    /* Align with the baseline of the first line of the title? No, usually top aligned. */
-    /* Adjust as needed for visual balance */
-    padding-top: 1.5rem;
-    /* Optical adjustment */
-}
-
+/* Title Styling */
 .stw-title {
     font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.05;
-    margin: 0;
-    letter-spacing: -0.03em;
+    margin: 0 0 3rem 0;
+    /* Added bottom margin for space */
+    letter-spacing: -0.01em;
+    text-align: center;
+    width: 100%;
 }
 
-/* Style for underlined text passed via innerHTML */
+/* Underline styling applied to 'u' or specific class in innerHTML */
 ::ng-deep .stw-title u,
 ::ng-deep .stw-title span.underline {
     text-decoration: none;
-    border-bottom: 4px solid currentColor;
-    font-style: normal;
-    padding-bottom: 2px;
+    border-bottom: 5px solid currentColor;
+    padding-bottom: 3px;
     display: inline-block;
     line-height: inherit;
+    font-weight: 700;
+    /* Slightly bolder for emphasized part */
 }
 
-.stw-description {
-    font-size: 1rem;
-    /* Larger than default */
-    line-height: 1.6;
-    font-weight: 400;
+/* Description Content Styling */
+.desc-content {
+    font-size: 1.55rem;
+    line-height: 1.7;
+    font-weight: 100;
     margin: 0;
-    opacity: 0.95;
-    letter-spacing: -0.01em;
+    opacity: .95;
+    letter-spacing: -.01em;
+    width: 100%;
+    max-width: 800px;
+}
+
+::ng-deep .desc-content p {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    /* Adjusted from 500 to better match the thin weight requested */
+}
+
+::ng-deep .desc-content ol {
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+    margin: 0;
+}
+
+::ng-deep .desc-content li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+::ng-deep .desc-content li::before {
+    content: counter(item) ".";
+    counter-increment: item;
+    font-weight: 700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+::ng-deep .desc-content strong {
+    font-weight: 700;
 }
 
 @media (max-width: 900px) {
-    .content-wrapper {
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .title-col,
-    .desc-col {
-        flex: auto;
-        max-width: 100%;
-        padding-top: 0;
+    .stw-container {
+        padding: 0 5% 60px 5%;
+        padding-top: 2rem;
     }
 
     .stw-title {
-        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        margin-bottom: 2.5rem;
     }
 
-    .stw-description {
-        font-size: 1.25rem;
+    .desc-content {
+        font-size: 1.1rem;
     }
 }

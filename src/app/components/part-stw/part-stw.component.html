@@ -1,10 +1,6 @@
 <section class="stw-container" [style.background-color]="backgroundColor()" [style.color]="textColor()">
     <div class="content-wrapper">
-        <div class="title-col">
-            <h2 [innerHTML]="titleHtml()" class="stw-title" [style.font-family]="titleFont()"></h2>
-        </div>
-        <div class="desc-col">
-            <p class="stw-description" [style.font-family]="descriptionFont()">{{ description() }}</p>
-        </div>
+        <h2 [innerHTML]="titleHtml()" class="stw-title" [style.font-family]="titleFont()"></h2>
+        <div class="desc-content" [innerHTML]="description()" [style.font-family]="descriptionFont()"></div>
     </div>
 </section>
