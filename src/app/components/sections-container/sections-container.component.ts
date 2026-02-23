@@ -395,10 +395,14 @@ export class SectionsContainerComponent implements OnDestroy {
                 entries.forEach((entry) => {
                     this.containerVisible.emit(entry.isIntersecting);
 
-                    // Toggle snapping only for vertical containers
+                    // Toggle global snap only for desktop-like pointers on vertical containers.
                     if (!this.isHorizontal()) {
-                        if (entry.isIntersecting) {
-                            this.renderer.addClass(this.document.documentElement, 'snapping-enabled');
+                        if (this.shouldEnableGlobalSnap()) {
+                            if (entry.isIntersecting) {
+                                this.renderer.addClass(this.document.documentElement, 'snapping-enabled');
+                            } else {
+                                this.renderer.removeClass(this.document.documentElement, 'snapping-enabled');
+                            }
                         } else {
                             this.renderer.removeClass(this.document.documentElement, 'snapping-enabled');
                         }
@@ -413,6 +417,13 @@ export class SectionsContainerComponent implements OnDestroy {
             { root: null, threshold: 0.1 }
         );
         visibilityObserver.observe(container);
+    }
+
+    private shouldEnableGlobalSnap(): boolean {
+        const view = this.document.defaultView;
+        if (!view) return false;
+
+        return view.matchMedia('(min-width: 901px) and (pointer: fine)').matches;
     }
 
     private triggerMobileIndicator() {
