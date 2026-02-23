@@ -57,6 +57,13 @@ html.snapping-enabled {
     scroll-snap-type: y mandatory;
 }
 
+@media (max-width: 900px) {
+    html.snap-active,
+    html.snapping-enabled {
+        scroll-snap-type: none;
+    }
+}
+
 body {
     font-family: var(--font-body);
     background-color: #f4f1ea;
