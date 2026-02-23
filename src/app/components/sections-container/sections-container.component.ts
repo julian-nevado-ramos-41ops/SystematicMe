@@ -65,6 +65,13 @@ import { DOCUMENT } from '@angular/common';
         margin: 0 1rem;
         border-radius: 16px;
       }
+
+      :host:not(.horizontal) {
+        height: 100dvh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: y mandatory;
+      }
     }
 
     /* ─── Mobile Scroll Indicator ─── */
