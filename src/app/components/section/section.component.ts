@@ -237,7 +237,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
 
     .accordion-header {
       position: absolute;
-      top: 10vh;
+      top: 12vh;
       left: 0;
       right: 0;
       width: 80%;
@@ -373,6 +373,13 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
         max-width: 100%;
       }
 
+      .section-content.full-width {
+        justify-content: flex-start;
+        gap: 1.5rem;
+        padding-top: 6.5rem;
+        padding-bottom: 3.5rem;
+      }
+
       .text-container {
         align-items: center;
         text-align: center;
@@ -384,7 +391,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       .accordion-header {
          position: static;
          pointer-events: auto;
-         margin: 0 0 2rem 0;
+         margin: 0 0 3.25rem 0;
          width: 100%;
          text-align: center;
          padding: 0;
@@ -395,8 +402,13 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       }
 
       .section-content.full-width .content-slot {
+        width: 80%;
         max-width: 100%;
-        max-height: calc(100dvh - 20rem);
+        height: min(var(--content-slot-height, 60dvh), calc(100dvh - 14rem));
+        max-height: calc(100dvh - 14rem);
+        min-height: 0;
+        overflow: hidden;
+        align-items: stretch;
       }
 
       .section-image-container {
@@ -414,6 +426,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
 
       .content-slot {
         width: 100%;
+        min-width: 0;
       }
     }
     

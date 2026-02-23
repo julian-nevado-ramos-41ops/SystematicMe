@@ -176,21 +176,28 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
     }
 
     /* ─── Mobile ─── */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       :host,
       :host.collapsed,
       :host.expanded {
         flex: none;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
       }
 
       :host.collapsed {
+        flex: 0 0 auto;
         height: auto;
         min-height: 60px;
+        max-height: clamp(60px, 14dvh, 110px);
       }
 
       :host.expanded {
-        height: 400px;
+        flex: 1 1 auto;
+        height: auto;
+        min-height: 0;
+        max-height: 100%;
       }
 
       .vertical-title {
@@ -205,6 +212,7 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       /* On mobile collapsed: show only title */
       :host.collapsed .card-content {
         display: flex;
+        overflow: hidden;
       }
 
       :host.collapsed .card-body {
@@ -212,9 +220,13 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       }
 
       .card-content {
-        padding: 30px;
+        padding: 24px;
         flex-direction: column;
         text-align: left;
+        height: 100%;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
       h2 {
