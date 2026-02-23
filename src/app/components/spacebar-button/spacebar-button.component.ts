@@ -5,6 +5,8 @@ import {
   signal,
   afterNextRender,
   OnDestroy,
+  input,
+  booleanAttribute,
 } from '@angular/core';
 
 @Component({
@@ -13,6 +15,7 @@ import {
   host: {
     'class': 'spacebar__button',
     '[class.is-pressed]': 'isPressed()',
+    '[class.is-inactive]': '!isActive()',
     '(mousedown)': 'startPress($event)',
     '(mouseup)': 'cancelPress()',
     '(mouseleave)': 'cancelPress()',
@@ -23,23 +26,34 @@ import {
   styleUrl: './spacebar_button_styles.css',
 })
 export class SpacebarButtonComponent implements OnDestroy {
+  isActive = input(true, { transform: booleanAttribute });
   pressed = output<void>();
 
   isPressed = signal(false);
   private pressTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly ANIMATION_DURATION = 1000;
 
+  private isHandlingSpaceKey = false;
+
   private keydownHandler = (event: KeyboardEvent) => {
     if (event.code === 'Space') {
-      event.preventDefault(); // Always prevent scrolling
-      if (!event.repeat) {
-        this.startPress(event);
+      if (this.isActive()) {
+        event.preventDefault(); // Always prevent scrolling
+        if (!event.repeat) {
+          this.isHandlingSpaceKey = true;
+          this.startPress(event);
+        }
+      } else if (this.isHandlingSpaceKey) {
+        // If we started handling this spacebar press when active, continue 
+        // preventing default until keyup, even if we become inactive mid-press
+        event.preventDefault();
       }
     }
   };
 
   private keyupHandler = (event: KeyboardEvent) => {
     if (event.code === 'Space') {
+      this.isHandlingSpaceKey = false;
       this.cancelPress();
     }
   };

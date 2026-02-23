@@ -21,7 +21,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
           }
         </p>
       }
-      <h2 class="hero-title" [innerHTML]="title()"></h2>
+      <h1 class="hero-title" [innerHTML]="title()"></h1>
       
       @if (description()) {
         <p class="hero-description"

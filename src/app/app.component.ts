@@ -28,7 +28,6 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     ProgramRoadmapComponent,
     HudOverlayComponent,
     PartStwComponent,
-    ContactUsComponent,
     FooterComponent
   ],
   template: `
@@ -37,7 +36,7 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     <app-hud-overlay />
 
     <app-nav-bar 
-      [logo]="{ src: './img/logo_stw.png', alt: 'SciTheWorld', link: '/' }"
+      [logo]="{ src: './img/logo-nav-bar.gif', alt: 'SciTheWorld', link: '/' }"
       [menuItems]="navItems()" 
       variant="glass"
       topOffset="20px"
@@ -60,33 +59,46 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     />
 
     <app-sections-container
+      #verticalContainer
       id="vertical-sections"
       layout="vertical"
       viewportHeightVh="100"
+      (sectionChanged)="onVerticalSectionChange($event)"
       (containerVisible)="onContainerVisibilityChange($event, 'vertical')"
     >
         <app-section
           [id]="1"
+          [sectionIndex]="0"
+          [totalSections]="4"
+          [globalCurrentSection]="verticalCurrentSection()"
           title="The problem we solve"
           backgroundColor="#4AB5EA"
           modalContent="AI, automation, and deep technological shifts do not destroy careers randomly. They destroy static professional profiles.\n\nMost professionals fail not because they lack intelligence, but because:\n<ul><li>they update too late,</li><li>they overreact under pressure,</li><li>or they gamble on abrupt career resets.</li></ul>\nSystematicMe exists to ensure that the professional identity is never static."
           (requestModal)="onRequestModal($event)"
+          (navigate)="verticalContainer.onSideNavClick($event)"
+          (nextSection)="verticalContainer.navigateNext()"
         >
 
         </app-section>
 
         <app-section
           [id]="2"
+          [sectionIndex]="1"
+          [totalSections]="4"
+          [globalCurrentSection]="verticalCurrentSection()"
           title="Why us"
           backgroundColor="#FA715E"
+          [isAccordionSection]="true"
+          (navigate)="verticalContainer.onSideNavClick($event)"
+          (nextSection)="verticalContainer.navigateNext()"
         >
-          <app-accordion mode="click" [blockCount]="2" width="85%" height="60vh">
-             <app-accordion-card title="CREDIBILITY" [expanded]="expandedVerticalCard() === 0" (clicked)="setExpandedVerticalCard(0)">
+          <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
+             <app-accordion-card title="CREDIBILITY" image="./img/accordion/sergio_green_world.jpeg" [expanded]="expandedVerticalCard() === 0" (clicked)="setExpandedVerticalCard(0)">
                 <p>We have a pristine track record dynamically anticipating innovation over the years. And, while doing so, we fathered Algorithmization - well beyond it was mainstream.</p>
                 <p>We have globally trained clients on this discipline across sectors. It is time to democratize that.</p>
              </app-accordion-card>
-             <app-accordion-card title="UNBEATABLE TECHNOLOGY" [expanded]="expandedVerticalCard() === 1" (clicked)="setExpandedVerticalCard(1)">
-                <p>There is a point when the job market can’t absorb you. We can uniquely help you re-orientate your career towards entrepreneurship upon our algorithmic technology (venture tech).</p>
+             <app-accordion-card title="UNBEATABLE TECHNOLOGY" image="./img/accordion/sergio_receiving_prize.jpg" [expanded]="expandedVerticalCard() === 1" (clicked)="setExpandedVerticalCard(1)">
+                <p>There is a point when the job market can't absorb you. We can uniquely help you re-orientate your career towards entrepreneurship upon our algorithmic technology (venture tech).</p>
                 <p>The more we have trained you the more we know you. And so, the better the match.</p>
              </app-accordion-card>
           </app-accordion>
@@ -94,20 +106,30 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
 
         <app-section
           [id]="3"
+          [sectionIndex]="2"
+          [totalSections]="4"
+          [globalCurrentSection]="verticalCurrentSection()"
           title="The method: follow, evolve, deviate"
           backgroundColor="#4CD6BC"
           modalContent="SystematicMe follows a deliberate loop:\n<br>\n<b>First, you catch up</b>\nYou start by understanding the concepts behind the way the founders think, decide, and anticipate change. In particular, wrapped around two topics: their particular experience and their overall attitude.\n<br>\n<b>Then, you evolve with us</b>\nThe system updates continuously, as we do. New technologies, new risks, new opportunities. None of us know what’s coming next and we will surely need to learn more and, even pioneer again part of the path.\n<br>\n<b>Finally, you deviate</b>\nOnce you have judgment, you deliberately build your own path, your own profile. Your professional strategy based on your own perception of risk-reward.\n<br>\n<b>Custom. Timely. Proactive.</b>\nBecause careers must be managed professionally as competitive advantages."
           (requestModal)="onRequestModal($event)"
+          (navigate)="verticalContainer.onSideNavClick($event)"
+          (nextSection)="verticalContainer.navigateNext()"
         >
 
         </app-section>
 
         <app-section
           [id]="4"
+          [sectionIndex]="3"
+          [totalSections]="4"
+          [globalCurrentSection]="verticalCurrentSection()"
           title="How learning works with us?"
           backgroundColor="#EECA46"
           modalContent="We do not start with fragmented topics. We start with real stories.\n<br>\nEach program:\n<ul><li>presents a full, complex and very significant narrative, difficult to grasp at the beginning,</li><li>breaks it into structured modules,</li><li>delivers targeted learning pills tied to that story - videos, reports, Python Notebooks, prompts… any combination.</li></ul>\nThe loop is intentional:\n<ul><li>first, the story feels complex and overwhelming (first day),</li><li>then, it becomes complex but intelligible (last day),</li><li>finally, it becomes actionable (all along your career).</li></ul>"
           (requestModal)="onRequestModal($event)"
+          (navigate)="verticalContainer.onSideNavClick($event)"
+          (nextSection)="verticalContainer.navigateNext()"
         >
 
         </app-section>
@@ -116,38 +138,57 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     <app-program-roadmap />
 
     <app-sections-container
+      #horizontalContainer
       id="horizontal-sections"
       layout="horizontal"
       viewportHeightVh="85"
+      (sectionChanged)="onHorizontalSectionChange($event)"
       (containerVisible)="onContainerVisibilityChange($event, 'horizontal')"
     >
         <!-- Section 1 -->
         <app-section
             [id]="5"
+            [sectionIndex]="0"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="The road to success"
             modalContent="SystematicMe seeks timely knowledge accumulation at a level eloquent enough for you to make decisions, challenge marketing, challenge experts…\nAnd over time:\n\t• skills compound,\n\t• risk awareness increases,\n\t• optionality grows, and\n\t• network spans.\nThis all is what we expect to converge toward success. Not immediately. But reliably."
             backgroundColor="#4AB5EA"
             (requestModal)="onRequestModal($event)"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
         </app-section>
 
         <!-- Section 2 -->
         <app-section
             [id]="6"
+            [sectionIndex]="1"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="WHO THIS IS FOR"
             modalContent="SystematicMe is built for people who need judgment, not just skills:\n\t• professionals from mid-roles to board level,\n\t• investors,\n\t• journalists,\n\t• policymakers and civil servants.\nYou do not need to be the most technical person in the room. That will soon be a bot.\nYou need to understand context, trade-offs, and consequences.\nThis is, you need the skills required to apply your human creativity on top."
             backgroundColor="#FA715E"
             (requestModal)="onRequestModal($event)"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
         </app-section>
 
         <!-- Section 3 Accordion -->
         <app-section
             [id]="7"
+            [sectionIndex]="2"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="STUDENTS"
             backgroundColor="#4CD6BC"
+            [isAccordionSection]="true"
+            contentSlotHeight="51dvh"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
-            <app-accordion mode="click" [blockCount]="2" width="85%" height="60vh">
+            <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
                 <app-accordion-card title="THIS IS NOT" [expanded]="expandedStudentsCard() === 0" (clicked)="setExpandedStudentsCard(0)">
                     <ul>
                         <li>a single course;</li>
@@ -171,10 +212,17 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
         <!-- Section 4 Accordion -->
         <app-section
             [id]="8"
+            [sectionIndex]="3"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="TEACHERS"
             backgroundColor="#EECA46"
+            [isAccordionSection]="true"
+            contentSlotHeight="51dvh"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
-            <app-accordion mode="click" [blockCount]="2" width="85%" height="60vh">
+            <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
                  <app-accordion-card title="THIS IS NOT" [expanded]="expandedTeachersCard() === 0" (clicked)="setExpandedTeachersCard(0)">
                     <ul>
                         <li>a social network open to any expert. You need to be proposed and, then, qualify.</li>
@@ -195,41 +243,49 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
          <!-- Section 5 -->
         <app-section
             [id]="9"
+            [sectionIndex]="4"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="Career hedging, not gambling"
             modalContent="SystematicMe’s approach to career management inherits risk management practices from the investment industry - in the end, the most valuable asset you have to trade is you own career.\nThus, the better we understand:\n\t• your skills - your career risks and assets,\n\t• your efforts - the skin you put in the game,\nthe better we can propose:\n\t• short learning pills,\n\t• deeper, longer programs,\n\t• open or free resources where appropriate,\n\t• paid, high-leverage learning only when justified.\nThis is, after-uni education built around custom, timely skills . Career built upon optionality, not credentials."
             backgroundColor="#FD5F65"
             (requestModal)="onRequestModal($event)"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
         </app-section>
 
-        <!-- Section 6 -->
+        <!-- Section 2 -->
          <app-section
             [id]="10"
+            [sectionIndex]="5"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="Only efficient efforts"
             modalContent="By continuously understanding your roadmap in a micro level of skills, we:\n\t• avoid charging you twice for overlapping concepts (and wasting your time),\n\t• treat you as an individual, not a cohort.\nSome guidance is algorithmic. Some is personal."
             backgroundColor="#4AB5EA"
             (requestModal)="onRequestModal($event)"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
         </app-section>
 
-        <!-- Section 7 -->
+        <!-- Section 3 -->
         <app-section
             [id]="11"
+            [sectionIndex]="6"
+            [totalSections]="7"
+            [globalCurrentSection]="horizontalCurrentSection()"
             title="IN ONE SENTENCE"
             backgroundColor="#FA715E"
+            [modalContent]="inOneSentenceModal"
             (requestModal)="onRequestModal($event)"
+            (navigate)="horizontalContainer.onSideNavClick($event)"
+            (nextSection)="horizontalContainer.navigateNext()"
         >
              <div class="content-wrapper" style="width: 100%; display: flex; justify-content: flex-start;">
-                <p class="section-text" style="color: white; max-width: 800px; text-align: left; margin: 0;">
-                    SystematicMe is your lifelong career infrastructure—designed to help you stay valuable, independent, and antifragile in an world of continuous innovation.
-                    <br><br>
-                    Yes, the sentence is the first with which we introduced ourselves.By reading this website, you have already experienced mildly our learning approach (complex and overwhelming > complex but intelligible). What probably lacked a lot of meaning just a few minutes may at this stage resonate with fair accuracy.
-                    <br><br>
-                    Now, you have probably developed an initial level of judgment around why career management must be managed like a pro. This is, approached structurally, over the long term, and supported by career management infrastructure—even through corporate and investment technology in the most radical transition of all: entrepreneurship.
-                    <br><br>
-                    Next? Action (actionable) - join us. 
-                    <br><br>
-                    But there is no need to decide now. Let the ideas settle. Return when you fully grasp both the relevance of what we propose and why we are uniquely positioned to deliver it. You will know when.
+                <p class="section-text" style="color: white; max-width: 800px; text-align: left; margin: 0; font-style: italic; opacity: 0.9;">
+                    [ SystematicMe is your lifelong career infrastructure—designed to help you stay valuable, independent, and antifragile in an world of continuous innovation. ]
                 </p>
              </div>
         </app-section>
@@ -247,8 +303,10 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     @if (activeModal()) {
       <div class="modal-backdrop" (click)="closeModal()">
         <div class="modal-container" [style.background-color]="activeModal()?.color" (click)="$event.stopPropagation()">
-          <button class="modal-close" (click)="closeModal()">✕</button>
-          <h2 class="modal-title">{{ activeModal()?.title }}</h2>
+          <div class="modal-header" [style.background-color]="activeModal()?.color">
+            <h2 class="modal-title">{{ activeModal()?.title }}</h2>
+            <button class="modal-close" (click)="closeModal()">✕</button>
+          </div>
           <div class="modal-body">
             <p class="modal-text" [innerHTML]="activeModal()?.content"></p>
           </div>
@@ -300,19 +358,28 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
       width: 90%;
       max-width: 850px;
       max-height: 80vh;
-      padding: 3rem 3.5rem;
       /* background-color set dynamically in template */
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       overflow-y: auto;
       animation: modalSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 3.5rem 1.5rem 3.5rem;
+      border-radius: 20px 20px 0 0;
     }
 
     .modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.5rem;
       background: none;
       border: none;
       color: rgba(255, 255, 255, 0.6);
@@ -320,6 +387,7 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
       cursor: pointer;
       transition: all 0.2s ease;
       padding: 4px 8px;
+      flex-shrink: 0;
     }
 
     .modal-close:hover {
@@ -335,11 +403,12 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
       line-height: 1;
       text-transform: uppercase;
       color: #ffffff;
-      margin: 0 0 2rem 0;
+      margin: 0;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .modal-body {
+      padding: 0 3.5rem 3rem 3.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -400,23 +469,37 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
 export class AppComponent {
   activeModal = signal<{ title: string, content: string, color: string } | null>(null);
 
+  inOneSentenceModal = `Yes, the sentence is the first with which we introduced ourselves. By reading this website, you have already experienced mildly our learning approach (<u>complex and overwhelming > complex but intelligible</u>). What probably lacked a lot of meaning just a few minutes may at this stage resonate with fair accuracy.
+<br><br>
+Now, you have probably developed an initial level of judgment around why <b>career management must be managed like a pro</b>. This is, <b>approached structurally, over the long term, and supported by career management infrastructure</b>—even through corporate and investment technology in the most radical transition of all: entrepreneurship.
+<br>
+Next? Action (<u>actionable</u>) - join us. 
+<br>
+But there is no need to decide now. Let the ideas settle. Return when you fully grasp both the relevance of what we propose and why we are uniquely positioned to deliver it. <b>You will know when</b>.`;
+
+  // Track current sections for internal navigation
+  verticalCurrentSection = signal(0);
+  horizontalCurrentSection = signal(0);
+
   // Expanded states for accordions
   expandedVerticalCard = signal(-1);
   expandedStudentsCard = signal(-1);
   expandedTeachersCard = signal(-1);
   private visibleContainers = new Set<string>();
 
+  onVerticalSectionChange(index: number) {
+    this.verticalCurrentSection.set(index);
+  }
+
+  onHorizontalSectionChange(index: number) {
+    this.horizontalCurrentSection.set(index);
+  }
+
   onContainerVisibilityChange(visible: boolean, id: string) {
     if (visible) {
       this.visibleContainers.add(id);
     } else {
       this.visibleContainers.delete(id);
-    }
-
-    if (this.visibleContainers.size > 0) {
-      document.documentElement.classList.add('snap-active');
-    } else {
-      document.documentElement.classList.remove('snap-active');
     }
   }
 

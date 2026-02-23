@@ -8,7 +8,7 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
     'aria-label': 'Navegación de secciones',
   },
   template: `
-    <div class="nav-current-section">{{ formattedCurrent() }}</div>
+    <div class="nav-current-section" [style.color]="color()">{{ formattedCurrent() }}</div>
 
     <ul class="timeline-dots">
       @for (i of dotsArray(); track i) {
@@ -17,6 +17,8 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
             [href]="'#section-' + (i + 1)"
             class="timeline-dot"
             [class.active]="currentSection() === i"
+            [style.background-color]="currentSection() === i ? 'transparent' : color()"
+            [style.border-color]="color()"
             [attr.aria-label]="'Ir a sección ' + (i + 1)"
             (click)="onDotClick($event, i)"
           ></a>
@@ -24,7 +26,7 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
       }
     </ul>
 
-    <div class="nav-total-sections">{{ formattedTotal() }}</div>
+    <div class="nav-total-sections" [style.color]="color()">{{ formattedTotal() }}</div>
   `,
   styles: `
     :host {
@@ -40,7 +42,6 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 14px;
       font-weight: 700;
-      color: #000000;
       line-height: 1;
     }
 
@@ -58,7 +59,6 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
       display: block;
       width: 6px;
       height: 6px;
-      background-color: #000000;
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -68,7 +68,6 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
 
     .timeline-dot.active {
       background-color: transparent;
-      border: 2px solid #000000;
       width: 8px;
       height: 8px;
       transform: scale(1.2);
@@ -80,6 +79,7 @@ import { Component, ChangeDetectionStrategy, input, output } from '@angular/core
   `,
 })
 export class SideNavComponent {
+  color = input('#000000');
   totalSections = input.required<number>();
   currentSection = input(0);
   sectionClicked = output<number>();
@@ -101,3 +101,4 @@ export class SideNavComponent {
     this.sectionClicked.emit(index);
   }
 }
+

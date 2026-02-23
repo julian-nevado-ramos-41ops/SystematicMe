@@ -34,7 +34,7 @@
 
                 <div class="card-content" [class.card-content-with-map]="card.markers?.length || card.images?.length">
                     <!-- Left column: text & actions -->
-                    <div class="card-text-col">
+                    <div class="card-text-col" (click)="$event.stopPropagation()">
                         @if (card.icon) {
                         <div class="scroll-card-icon">{{ card.icon }}</div>
                         }
@@ -90,7 +90,7 @@
 
                     <!-- Right column: visuals (map or images) -->
                     @if (card.markers?.length || card.images?.length) {
-                    <div class="card-visual-col">
+                    <div class="card-visual-col" (click)="expandedScrollCard() === i ? $event.stopPropagation() : null">
                         @if (card.markers?.length) {
                         <app-interactive-map [markers]="card.markers!" />
                         }

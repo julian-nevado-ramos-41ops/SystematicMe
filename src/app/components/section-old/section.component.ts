@@ -1,35 +1,21 @@
-
-
-
 import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } from '@angular/core';
-import { SectionIndicatorComponent } from '../section-indicator/section-indicator.component';
-import { SideNavComponent } from '../side-nav/side-nav.component';
-import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.component';
 
 @Component({
   selector: 'app-section',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionIndicatorComponent, SideNavComponent, SpacebarButtonComponent],
   host: {
     'class': 'section',
     '[class.visible]': 'isVisible()',
     '[class.folded]': 'isFolded()',
     '[class.full-width-section]': 'isAccordionSection() || fullWidth()',
     '[style.background-color]': 'backgroundColor()',
-    '[style.--content-slot-height]': 'contentSlotHeight()',
     '[id]': '"section-" + id()',
   },
   template: `
-    <div class="left-indicator">
-      @if (totalSections() > 0) {
-        <app-section-indicator [current]="globalCurrentSection()" [total]="totalSections()" />
-      }
-    </div>
-
     <div class="section-content" [class.full-width]="isAccordionSection() || fullWidth()" [class.has-image]="image()" [class.align-start]="!image()">
       @if (!isAccordionSection()) {
         <div class="text-container">
-          <h2 class="section-title">{{ title() }}</h2>
+          <h1 class="section-title">{{ title() }}</h1>
           @if (subtitle()) {
             <p class="section-subtitle">{{ subtitle() }}</p>
           }
@@ -46,103 +32,35 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
           </div>
         }
       } @else {
-        <div class="text-container accordion-header">
-          <h2 class="section-title">{{ title() }}</h2>
-        </div>
+        <h3 class="section-mini-title">{{ title() }}</h3>
       }
       <div class="content-slot">
         <ng-content />
       </div>
     </div>
 
-    <div class="right-nav">
-      @if (totalSections() > 0) {
-        <app-side-nav [totalSections]="totalSections()" [currentSection]="globalCurrentSection()" [color]="navColor()" (sectionClicked)="navigate.emit($event)" />
-        @if (sectionIndex() < totalSections() - 1) {
-          <app-spacebar-button [isActive]="globalCurrentSection() === sectionIndex()" (pressed)="nextSection.emit()" />
-        }
-      }
-    </div>
+
   `,
   styles: [`
     :host {
-      height: 100vh; /* Fallback for older browsers */
-      height: 100dvh; /* Dynamic viewport height safely avoids mobile browser toolbars */
+      height: 100vh;
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      padding-left: 2rem;
-      padding-right: 2rem;
+      padding-left: 12%;
+      padding-right: 12%;
       position: relative;
       overflow: hidden;
       scroll-snap-align: start;
       scroll-snap-stop: always;
       box-sizing: border-box;
-      gap: 2rem;
-    }
-
-    .left-indicator {
-      position: relative;
-      height: 100%;
-      width: 100px;
-      flex-shrink: 0;
-    }
-
-    .left-indicator app-section-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 0;
-    }
-
-    .right-nav {
-      position: relative;
-      height: 100%;
-      width: 140px; /* Matched spacebar button width */
-      flex-shrink: 0;
-    }
-
-    .right-nav app-side-nav {
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-    }
-
-    .right-nav app-spacebar-button {
-       position: absolute;
-       bottom: 2rem;
-       left: 50%;
-       transform: translateX(-50%);
     }
 
     :host.full-width-section {
       padding-left: 0;
       padding-right: 0;
       justify-content: center;
-    }
-
-    :host.full-width-section .left-indicator,
-    :host.full-width-section .right-nav {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    :host.full-width-section .left-indicator {
-      left: 2rem;
-    }
-
-    :host.full-width-section .right-nav {
-      right: 2rem;
-    }
-
-    :host.full-width-section .left-indicator app-section-indicator,
-    :host.full-width-section .right-nav app-side-nav,
-    :host.full-width-section .right-nav app-spacebar-button {
-      pointer-events: auto;
     }
 
     :host.folded {
@@ -169,22 +87,24 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
     .section-content {
       text-align: left;
       padding: 2rem 0;
-      flex: 1; /* Takes available space */
+      width: 100%;
       max-width: 1400px; 
+      margin-right: auto;
+      margin-left: 0;
       opacity: 1;
       transform: translateY(0);
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-direction: row; /* Always row on desktop */
+      align-items: center; /* Default center for image sections */
       justify-content: space-between;
       gap: 4rem;
     }
 
     .section-content.align-start {
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: column !important; /* Stack title and content vertically */
+      align-items: flex-start !important;
       justify-content: flex-start;
-      gap: 2rem;
+      gap: 3rem; /* Increased margin for clearer separation */
     }
 
     .section-content.align-start .text-container {
@@ -198,6 +118,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
     .section-content.align-start .content-slot {
       width: 100%;
       flex: 1;
+      align-items: flex-start;
     }
 
     .section-content.has-image {
@@ -221,36 +142,9 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
       overflow: hidden;
-    }
-
-    .section-content.full-width .content-slot {
-      width: 80%;
-      height: var(--content-slot-height, 60dvh);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      flex: none;
-    }
-
-    .accordion-header {
-      position: absolute;
-      top: 10vh;
-      left: 0;
-      right: 0;
-      width: 80%;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding-left: 5%;
-      z-index: 15;
-      pointer-events: none;
-      box-sizing: border-box;
-    }
-    
-    .accordion-header h2 {
-      text-align: left;
+      /* Reset specific image styles if full width is used differently, 
+         but currently full-width is mainly for accordion */
     }
 
     .text-container {
@@ -260,14 +154,14 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       justify-content: center;
       min-width: 300px;
       max-width: 45%; 
-      flex-shrink: 0;
-      position: sticky;
+      flex-shrink: 0; /* Prevent shrinking/shifting */
+      position: sticky; /* Keep it in view if list is long */
       top: 10vh;
     }
 
     .section-title {
       font-family: 'Bebas Neue', 'Impact', sans-serif;
-      font-size: clamp(2rem, 8vw, 7rem);
+      font-size: clamp(2rem, 8vw, 7rem); /* Slightly adjusted */
       font-weight: 400;
       letter-spacing: 0.05em;
       line-height: 0.9;
@@ -287,6 +181,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       opacity: 0.9;
     }
 
+    /* ─── See More Button ─── */
     .see-more-btn {
       display: inline-flex;
       align-items: center;
@@ -327,12 +222,14 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       transform: translateX(4px);
     }
 
+
+
     .section-image-container {
-      flex: 1.5;
+      flex: 1.5; /* Give more space to image relative to text */
       display: flex;
       justify-content: flex-end; 
-      min-width: 50%;
-      margin-right: -20%;
+      min-width: 50%; /* Ensure it takes space */
+      margin-right: -20%; /* Pull strongly to the right */
     }
 
     .section-image {
@@ -341,71 +238,57 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
       height: auto;
       object-fit: contain;
     }
-    
+
+    .section-mini-title {
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
     @media (max-width: 900px) {
-      :host {
-        padding: 0 5%;
-        justify-content: center;
-        gap: 0;
-      }
-
-      .left-indicator {
-        display: block;
-        position: absolute;
-        bottom: 1.1rem; 
-        left: 1.5rem;
-        width: auto;
-        height: auto;
-        z-index: 100;
-        pointer-events: auto;
-      }
-
-      .right-nav {
-        display: none;
-      }
-      
       .section-content {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
         gap: 2rem;
-        width: 100%;
-        max-width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
       }
 
-      .text-container {
-        align-items: center;
-        text-align: center;
-        max-width: 100%;
-        min-width: 0;
-        position: static;
-      }
-
-      .accordion-header {
-         position: static;
-         pointer-events: auto;
-         margin: 0 0 2rem 0;
-         width: 100%;
-         text-align: center;
-         padding: 0;
-      }
-
-      .accordion-header h2 {
+      /* When only title + see-more (no accordion/image), center everything */
+      .section-content.align-start {
+        align-items: center !important;
+        justify-content: center !important;
         text-align: center;
       }
 
-      .section-content.full-width .content-slot {
-        max-width: 100%;
-        max-height: calc(100dvh - 20rem);
-      }
-
-      .section-image-container {
-        width: 100%;
-        max-width: 100%;
-        margin-right: 0;
+      .section-content.align-start .text-container {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
         justify-content: center;
-        flex: none;
+      }
+
+      .section-content.align-start .content-slot:empty {
+        display: none;
+      }
+
+      .section-content.align-start .content-slot {
+        flex: none; /* Don't let empty slot push text up */
+      }
+      
+      .text-container {
+        max-width: 100%;
+      }
+      
+      .section-image-container {
+        max-width: 100%;
+        justify-content: center;
+        width: 100%;
       }
       
       .section-image {
@@ -414,12 +297,28 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
 
       .content-slot {
         width: 100%;
+        flex: 1;
+        min-height: 0; /* Allow flex child to shrink below content size */
+        overflow: hidden; /* Clip accordion overflow */
+      }
+
+      :host {
+        padding-right: 10%; /* Reset padding on mobile */
+      }
+
+      .modal-container {
+        padding: 2rem 1.5rem;
+        width: 95%;
       }
     }
     
     .content-slot {
       flex: 1;
       min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
   `],
 })
@@ -429,22 +328,11 @@ export class SectionComponent {
   subtitle = input('');
   image = input<string | undefined>();
   backgroundColor = input('var(--color-1)');
-  navColor = input('#000000');
   modalContent = input<string | undefined>();
-  prompt = input<string | undefined>();
-  llmLinks = input<{ label: string, url: string }[] | undefined>();
   isAccordionSection = input(false, { transform: booleanAttribute });
   fullWidth = input(false, { transform: booleanAttribute });
-  contentSlotHeight = input('60dvh');
   isVisible = input(false);
   isFolded = input(false);
-
-  sectionIndex = input(0);
-  totalSections = input(0);
-  globalCurrentSection = input(0);
-
-  navigate = output<number>();
-  nextSection = output<void>();
 
   requestModal = output<{ title: string, content: string, color: string }>();
 

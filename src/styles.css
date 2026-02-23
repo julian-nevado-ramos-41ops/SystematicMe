@@ -52,7 +52,8 @@ html {
     scroll-behavior: smooth;
 }
 
-html.snap-active {
+html.snap-active,
+html.snapping-enabled {
     scroll-snap-type: y mandatory;
 }
 
