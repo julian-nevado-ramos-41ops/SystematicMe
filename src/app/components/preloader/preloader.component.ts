@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
         <!-- Percentage & Counter -->
         <div class="counter-container">
           <span class="percentage">{{ progress() }}%</span>
-          <span class="counter-text">0466</span> <!-- Random or static number from image -->
+          <span class="counter-text"></span> 
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+      transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     }
 
     .preloader.slide-up {
@@ -89,7 +89,7 @@ import { CommonModule } from '@angular/common';
     /* Vertical Line */
     .vertical-line {
       width: 1px;
-      height: 80vh; /* Occupy almost full height */
+      height: 75vh; /* Occupy almost full height */
       background-color: rgba(255, 255, 255, 0.2);
       position: relative;
       overflow: hidden;
@@ -139,7 +139,7 @@ export class PreloaderComponent implements OnInit {
   }
 
   startLoading() {
-    const duration = 2500; // 2.5 seconds total
+    const duration = 1500; // Reduced from 2500 to 1500 (1.5 seconds total)
     const intervalTime = 20;
     const steps = duration / intervalTime;
     let currentStep = 0;
@@ -163,6 +163,6 @@ export class PreloaderComponent implements OnInit {
     // Slide up after a brief delay to read the text
     setTimeout(() => {
       this.isComplete.set(true);
-    }, 800);
+    }, 500);
   }
 }
