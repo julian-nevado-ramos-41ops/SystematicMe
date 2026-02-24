@@ -498,7 +498,7 @@ export class ProgramRoadmapComponent {
     formData.append('source', window.location.hostname || 'systematicme');
 
     try {
-      await fetch('https://platform.scitheworld.com/systematicme_submit_form', {
+      await fetch('https://platform.scitheworld.com/systematicme_submit_form/', {
         method: 'POST',
         body: formData,
       });
