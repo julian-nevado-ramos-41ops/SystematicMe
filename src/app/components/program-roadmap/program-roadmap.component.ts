@@ -33,15 +33,15 @@ interface Program {
             <form (submit)="onSubmit($event)">
               <div class="form-group">
                 <label for="joinName">Name</label>
-                <input id="joinName" type="text" placeholder="Your full name" required />
+                <input id="joinName" name="name" type="text" placeholder="Your full name" required />
               </div>
               <div class="form-group">
                 <label for="joinEmail">Email</label>
-                <input id="joinEmail" type="email" placeholder="your@email.com" required />
+                <input id="joinEmail" name="email" type="email" placeholder="your@email.com" required />
               </div>
               <div class="form-group">
                 <label for="joinMonth">Preferred start month</label>
-                <select id="joinMonth" required>
+                <select id="joinMonth" name="month" required>
                   <option value="" disabled selected>Select a month</option>
                   <option value="september">September</option>
                   <option value="february">February</option>
@@ -466,10 +466,10 @@ export class ProgramRoadmapComponent {
       ]
     },
     {
-      title: 'F*ck-You Skills',
+      title: 'F*ck-You Skills: Anti-Fragile Career',
       items: [
         { name: 'Nature', content: 'zoom-out - light, short' },
-        { name: 'Narrative', content: 'a less technical, more provocative and personal set of pills on professional risk management, as an evolution of the famous F*CK-YOU MONEY.' },
+        { name: 'Narrative', content: 'a less technical, more provocative and personal set of pills on professional risk management, as an evolution of the famous f*ck-you money (when you have so much money that you have the freedom to abandon a toxic situation without fearing the consequences).' },
         { name: 'Material', content: 'none previous.' },
         { name: 'Core dimensions', content: 'microeconomics.' },
         { name: 'Distribution', content: '' },
@@ -491,15 +491,21 @@ export class ProgramRoadmapComponent {
     this.showJoinForm.set(false);
   }
 
-  onSubmit(event: Event) {
+  async onSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-    console.log('Join form submitted:', {
-      name: (form.querySelector('#joinName') as HTMLInputElement)?.value,
-      email: (form.querySelector('#joinEmail') as HTMLInputElement)?.value,
-      month: (form.querySelector('#joinMonth') as HTMLSelectElement)?.value,
-    });
+    formData.append('source', window.location.hostname || 'systematicme');
+
+    try {
+      await fetch('https://platform.scitheworld.com/systematicme_submit_form', {
+        method: 'POST',
+        body: formData,
+      });
+    } catch (err) {
+      console.error('Error sending form:', err);
+    }
+
     this.formSubmitted.set(true);
   }
 }
