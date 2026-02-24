@@ -500,6 +500,7 @@ export class ProgramRoadmapComponent {
     try {
       await fetch('https://platform.scitheworld.com/systematicme_submit_form/', {
         method: 'POST',
+        mode: 'no-cors',   // workaround temporal hasta que el servidor configure CORS
         body: formData,
       });
     } catch (err) {
