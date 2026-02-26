@@ -1,10 +1,11 @@
 
 
 
-import { Component, ChangeDetectionStrategy, input, output, booleanAttribute } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, inject } from '@angular/core';
 import { SectionIndicatorComponent } from '../section-indicator/section-indicator.component';
 import { SideNavComponent } from '../side-nav/side-nav.component';
 import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.component';
+import { TranslationService } from '../../i18n';
 
 @Component({
   selector: 'app-section',
@@ -35,7 +36,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
           }
           @if (modalContent()) {
             <button class="see-more-btn" (click)="openModal($event)">
-              <span class="see-more-text">See more</span>
+              <span class="see-more-text">{{ ts.t().common.seeMore }}</span>
               <span class="see-more-arrow">→</span>
             </button>
           }
@@ -437,6 +438,7 @@ import { SpacebarButtonComponent } from '../spacebar-button/spacebar-button.comp
   `],
 })
 export class SectionComponent {
+  ts = inject(TranslationService);
   id = input.required<number>();
   title = input.required<string>();
   subtitle = input('');

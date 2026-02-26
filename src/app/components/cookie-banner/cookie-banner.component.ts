@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, signal, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { TranslationService } from '../../i18n';
 
 @Component({
     selector: 'app-cookie-banner',
@@ -10,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class CookieBannerComponent implements OnInit {
     isVisible = signal(false);
+    readonly ts = inject(TranslationService);
 
     constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 

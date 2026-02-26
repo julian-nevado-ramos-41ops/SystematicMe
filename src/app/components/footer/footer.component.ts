@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
+import { TranslationService } from '../../i18n';
 
 @Component({
   selector: 'app-footer',
@@ -9,11 +10,11 @@ import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
       <div class="footer-content">
         <div class="footer-left">
           <img src="img/logo-ISO.png" alt="ISO Logo" class="iso-logo">
-          <span class="iso-text">Members of both groups: AI and Web3 &amp; Metaverse</span>
+          <span class="iso-text" [innerHTML]="ts.t().footer.isoText"></span>
         </div>
         <div class="footer-right">
           <p class="copyright">
-            &copy; {{ currentYear() }} SciTheWorld. All rights reserved.
+            {{ ts.t().footer.copyright(currentYear()) }}
           </p>
         </div>
       </div>
@@ -81,5 +82,6 @@ import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
   `]
 })
 export class FooterComponent {
+  readonly ts = inject(TranslationService);
   currentYear = computed(() => new Date().getFullYear());
 }

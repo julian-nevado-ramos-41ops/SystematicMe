@@ -65,12 +65,20 @@
         <ng-content select="[nav-actions]"></ng-content>
         @if (!hasActionsSlot) {
         @if (showLangPicker()) {
-        <div class="lang-picker">
-            <span class="lang-label">EN</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+        <div class="lang-picker has-lang-dropdown">
+            <div class="lang-trigger">
+                {{ ts.currentLang() === 'en' ? 'EN' : 'ES' }}
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" class="lang-arrow">
+                    <path d="M1 1L5 5L9 1" />
+                </svg>
+            </div>
+            <ul class="lang-dropdown">
+                <li class="lang-option" (click)="ts.setLanguage('en')" [class.active]="ts.currentLang() === 'en'">EN
+                </li>
+                <li class="lang-option" (click)="ts.setLanguage('es')" [class.active]="ts.currentLang() === 'es'">ES
+                </li>
+            </ul>
         </div>
         }
 
@@ -131,6 +139,16 @@
 
         <!-- Mobile Actions Copy -->
         <div class="mobile-actions">
+            @if (showLangPicker()) {
+            <div class="mobile-lang-picker">
+                <span class="mobile-lang-option" (click)="ts.setLanguage('en'); closeMobileMenu()"
+                    [class.active]="ts.currentLang() === 'en'">EN</span>
+                <span class="mobile-lang-separator">|</span>
+                <span class="mobile-lang-option" (click)="ts.setLanguage('es'); closeMobileMenu()"
+                    [class.active]="ts.currentLang() === 'es'">ES</span>
+            </div>
+            }
+
             @if (cta()) {
             <a [href]="cta()?.link" class="cta-button mobile-cta" (click)="closeMobileMenu()">
                 {{ cta()?.label }}

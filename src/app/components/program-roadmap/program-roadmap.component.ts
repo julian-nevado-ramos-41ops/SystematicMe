@@ -1,9 +1,11 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
+import { TranslationService } from '../../i18n';
 
 interface RoadmapItem {
   name: string;
   content: string;
   isAction?: boolean;
+  indent?: boolean;
 }
 
 interface Program {
@@ -27,33 +29,33 @@ interface Program {
           <button class="modal-close" (click)="closeForm()">✕</button>
 
           @if (!formSubmitted()) {
-            <h3 class="modal-title">Join Now</h3>
-            <p class="modal-subtitle">Start your journey with SystematicMe</p>
+            <h3 class="modal-title">{{ ts.t().roadmap.joinModal.title }}</h3>
+            <p class="modal-subtitle">{{ ts.t().roadmap.joinModal.subtitle }}</p>
 
             <form (submit)="onSubmit($event)">
               <div class="form-group">
-                <label for="joinName">Name</label>
-                <input id="joinName" name="name" type="text" placeholder="Your full name" required />
+                <label for="joinName">{{ ts.t().roadmap.joinModal.nameLabel }}</label>
+                <input id="joinName" name="name" type="text" [placeholder]="ts.t().roadmap.joinModal.namePlaceholder" required />
               </div>
               <div class="form-group">
-                <label for="joinEmail">Email</label>
-                <input id="joinEmail" name="email" type="email" placeholder="your@email.com" required />
+                <label for="joinEmail">{{ ts.t().roadmap.joinModal.emailLabel }}</label>
+                <input id="joinEmail" name="email" type="email" [placeholder]="ts.t().roadmap.joinModal.emailPlaceholder" required />
               </div>
               <div class="form-group">
-                <label for="joinMonth">Preferred start month</label>
+                <label for="joinMonth">{{ ts.t().roadmap.joinModal.monthLabel }}</label>
                 <select id="joinMonth" name="month" required>
-                  <option value="" disabled selected>Select a month</option>
-                  <option value="september">September</option>
-                  <option value="february">February</option>
+                  <option value="" disabled selected>{{ ts.t().roadmap.joinModal.monthPlaceholder }}</option>
+                  <option value="september">{{ ts.t().roadmap.joinModal.monthSep }}</option>
+                  <option value="february">{{ ts.t().roadmap.joinModal.monthFeb }}</option>
                 </select>
               </div>
-              <button type="submit" class="submit-btn">Submit</button>
+              <button type="submit" class="submit-btn">{{ ts.t().roadmap.joinModal.submitBtn }}</button>
             </form>
           } @else {
             <div class="success-message">
               <span class="success-icon">✓</span>
-              <h3 class="modal-title">Thank you!</h3>
-              <p class="modal-subtitle">We'll be in touch shortly.</p>
+              <h3 class="modal-title">{{ ts.t().roadmap.joinModal.successTitle }}</h3>
+              <p class="modal-subtitle">{{ ts.t().roadmap.joinModal.successSubtitle }}</p>
             </div>
           }
         </div>
@@ -64,7 +66,7 @@ interface Program {
     <div class="roadmap-layout">
       <div class="roadmap-tables">
         <div class="roadmap-header">
-          <h2 class="title" style="margin-bottom: 3rem;">Programms roadmap</h2>
+          <h2 class="title" style="margin-bottom: 3rem;">{{ ts.t().roadmap.title }}</h2>
         </div>
 
         @for (program of programs(); track $index) {
@@ -73,11 +75,11 @@ interface Program {
             <ul class="roadmap-table">
               @for (item of program.items; track $index) {
                 <li class="roadmap-row" 
-                    [class.indent]="item.name === 'Modules' || item.name === 'Pills' || item.name === 'Custom Q&A per cohort'">
+                    [class.indent]="item.indent">
                   <span class="col-name">{{ item.name }}</span>
                   @if (item.isAction) {
                     <span class="col-content">
-                      <button class="join-btn" (click)="openForm()">Join Now</button>
+                      <button class="join-btn" (click)="openForm()">{{ item.content }}</button>
                     </span>
                   } @else {
                     <span class="col-content" [innerHTML]="item.content"></span>
@@ -163,7 +165,7 @@ interface Program {
       font-family: 'Inter', sans-serif;
       font-size: 2rem;
       font-weight: 500;
-      color: #000;
+      color: var(--color-1);
       margin-bottom: 1.5rem;
       border-bottom: 2px solid #000;
       padding-bottom: 0.5rem;
@@ -445,42 +447,44 @@ interface Program {
   `
 })
 export class ProgramRoadmapComponent {
+  readonly ts = inject(TranslationService);
   showJoinForm = signal(false);
   formSubmitted = signal(false);
 
-  programs = signal<Program[]>([
-    {
-      title: 'Algorithmization: The New Everything.',
-      items: [
-        { name: 'Nature', content: 'course - deep, long.' },
-        {
-          name: 'Narrative', content: "our challenge building up a company that couldn't fit anywhere because it was too innovative."
-        },
-        { name: 'Material', content: 'all papers from <a href="https://www.algorithmization.com" target="_blank">www.algorithmization.com</a>' },
-        { name: 'Core dimensions', content: 'microeconomics, AI/ML, and deeptech design.' },
-        { name: 'Distribution', content: '' },
-        { name: 'Modules', content: "9 - each followed by an offline video upon the pills' Q&A." },
-        { name: 'Pills', content: 'from 1 to 10 per paper - each reinforced by a community Q&A.' },
-        { name: 'Price', content: '€2,750.' },
-        { name: 'Availability', content: '', isAction: true }
-      ]
-    },
-    {
-      title: 'F*ck-You Skills: Anti-Fragile Career',
-      items: [
-        { name: 'Nature', content: 'zoom-out - light, short' },
-        { name: 'Narrative', content: 'a less technical, more provocative and personal set of pills on professional risk management, as an evolution of the famous f*ck-you money (when you have so much money that you have the freedom to abandon a toxic situation without fearing the consequences).' },
-        { name: 'Material', content: 'none previous.' },
-        { name: 'Core dimensions', content: 'microeconomics.' },
-        { name: 'Distribution', content: '' },
-        { name: 'Modules', content: "1 - followed by an offline video upon the pills' Q&A." },
-        { name: 'Pills', content: '4 - each reinforced by Q&A.' },
-        { name: 'Custom Q&A per cohort', content: 'per pill (report) and per module (offline video).' },
-        { name: 'Price', content: 'TBA' },
-        { name: 'Availability', content: 'forthcoming.' }
-      ]
-    }
-  ]);
+  programs = computed<Program[]>(() => {
+    const r = this.ts.t().roadmap;
+    return [
+      {
+        title: r.program1.title,
+        items: [
+          r.program1.items.nature,
+          r.program1.items.narrative,
+          r.program1.items.material,
+          r.program1.items.coreDimensions,
+          r.program1.items.distribution,
+          { ...r.program1.items.modules, indent: true },
+          { ...r.program1.items.pills, indent: true },
+          r.program1.items.price,
+          { ...r.program1.items.availability, isAction: true }
+        ]
+      },
+      {
+        title: r.program2.title,
+        items: [
+          r.program2.items.nature,
+          r.program2.items.narrative,
+          r.program2.items.material,
+          r.program2.items.coreDimensions,
+          r.program2.items.distribution,
+          { ...r.program2.items.modules, indent: true },
+          { ...r.program2.items.pills, indent: true },
+          { ...r.program2.items.customQa, indent: true },
+          r.program2.items.price,
+          r.program2.items.availability
+        ]
+      }
+    ];
+  });
 
   openForm() {
     this.formSubmitted.set(false);

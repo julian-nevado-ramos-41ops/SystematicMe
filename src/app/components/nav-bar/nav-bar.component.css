@@ -186,17 +186,84 @@
 
     /* Action Styles */
     .lang-picker {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      opacity: 0.7;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      position: relative;
     }
 
-    .lang-picker:hover {
+    .lang-trigger {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .lang-trigger:hover,
+    .has-lang-dropdown:hover .lang-trigger {
       opacity: 1;
+    }
+
+    .lang-arrow {
+      transition: transform 0.3s ease;
+      opacity: 0.8;
+      margin-top: 1px;
+    }
+
+    .has-lang-dropdown:hover .lang-arrow {
+      transform: rotate(180deg);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #000000;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 0.35rem;
+      list-style: none;
+      min-width: 60px;
+      margin: 0;
+      margin-top: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .has-lang-dropdown:hover .lang-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      padding: 0.35rem 0.5rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .lang-option:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .lang-option.active {
+      color: var(--color-1, #E85D04);
+      font-weight: 600;
     }
 
     .cta-button {
@@ -399,6 +466,30 @@
     .mobile-cta {
       font-size: 1.2rem;
       padding: 1rem 2rem;
+    }
+
+    .mobile-lang-picker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+    }
+
+    .mobile-lang-option {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .mobile-lang-option:hover {
+      color: #ffffff;
+    }
+
+    .mobile-lang-option.active {
+      color: var(--color-1, #E85D04);
     }
 
     @media (max-width: 900px) {

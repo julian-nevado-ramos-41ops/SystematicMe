@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
+import { TranslationService } from '../../i18n';
 
 interface Award {
   name: string;
@@ -15,8 +16,8 @@ interface Award {
   },
   template: `
     <div class="awards-header">
-      <h2 class="title">We’re Just Doing Our Job...<span class="asterisk">*</span></h2>
-      <p class="subtitle">*BUT SOMETIMES WE GET AWARDS FOR                IT</p>
+      <h2 class="title">{{ ts.t().awardsList.title1 }}<span class="asterisk">{{ ts.t().awardsList.title2 }}</span></h2>
+      <p class="subtitle">{{ ts.t().awardsList.subtitle }}</p>
     </div>
     <ul class="awards-table">
       @for (award of awards(); track $index) {
@@ -127,11 +128,6 @@ interface Award {
   `
 })
 export class AwardsListComponent {
-  awards = signal<Award[]>([
-    { name: 'Banking Tech Awards: Best Tech Leader', category: 'Finalist', project: 'Our forward-looking vision', year: '2025' },
-    { name: 'Finovate: Innovator of the Year', category: 'Finalist', project: 'Our pioneer work on Agentic AI', year: '2025' },
-    { name: 'Bankig Tech Awards: Best Tech of the Future: AI and Data', category: 'Winner', project: 'Our Fractal Platform', year: '2024' },
-    { name: 'CogX: Best Innovation in Simulation', category: 'Winner', project: 'Core of our Virtual Reality Simulation', year: '2020' },
-    { name: 'Banking Tech Awards: Best Trading Platform', category: 'Winner', project: 'Sergio`s UCL PhD Thesis at BBVA', year: '2017' }
-  ]);
+  readonly ts = inject(TranslationService);
+  awards = computed<Award[]>(() => this.ts.t().awardsList.awards);
 }

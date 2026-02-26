@@ -1,10 +1,9 @@
 <div class="cookie-banner" [class.hidden]="!isVisible()">
     <div class="cookie-content">
         <p class="cookie-text">
-            We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-        </p>
+        <p class="cookie-text">{{ ts.t().cookieBanner.text }}</p>
         <div class="cookie-actions">
-            <button class="cookie-btn accept" (click)="acceptCookies()">Accept</button>
+            <button class="cookie-btn accept" (click)="acceptCookies()">{{ ts.t().cookieBanner.acceptBtn }}</button>
         </div>
     </div>
 </div>
