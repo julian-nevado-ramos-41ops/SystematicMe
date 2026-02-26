@@ -1,9 +1,64 @@
-<div class="cookie-banner" [class.hidden]="!isVisible()">
-    <div class="cookie-content">
-        <p class="cookie-text">
-        <p class="cookie-text">{{ ts.t().cookieBanner.text }}</p>
-        <div class="cookie-actions">
-            <button class="cookie-btn accept" (click)="acceptCookies()">{{ ts.t().cookieBanner.acceptBtn }}</button>
+@if (isVisible()) {
+<div class="cookie-banner modern-banner">
+    <div class="banner-header">
+        <h3>{{ ts.t().cookieBanner.title }}</h3>
+        <p>{{ ts.t().cookieBanner.text }}</p>
+    </div>
+
+    @if (!showCustomize()) {
+    <div class="cookie-actions main-actions">
+        <button class="secondary-btn full-width" (click)="toggleCustomize()">{{ ts.t().cookieBanner.customizeBtn
+            }}</button>
+        <div class="bottom-actions">
+            <button class="secondary-btn" (click)="rejectAll()">{{ ts.t().cookieBanner.rejectBtn }}</button>
+            <button class="primary-btn" (click)="acceptAll()">{{ ts.t().cookieBanner.acceptBtn }}</button>
         </div>
     </div>
+    } @else {
+    <div class="cookie-categories">
+        <div class="category-row necessary-row">
+            <div class="category-info">
+                <h4>{{ ts.t().cookieBanner.categories.necessary.name }}</h4>
+                <p>{{ ts.t().cookieBanner.categories.necessary.description }}</p>
+            </div>
+            <div class="category-toggle">
+                <span class="required-label">{{ ts.t().cookieBanner.categories.necessary.label }}</span>
+                <div class="toggle-switch on disabled">
+                    <div class="knob"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-row clickable-row" (click)="toggleAnalytics()">
+            <div class="category-info">
+                <h4>{{ ts.t().cookieBanner.categories.analytics.name }}</h4>
+                <p>{{ ts.t().cookieBanner.categories.analytics.description }}</p>
+            </div>
+            <div class="category-toggle">
+                <span>{{ analyticsCookies() ? ts.t().cookieBanner.on : ts.t().cookieBanner.off }}</span>
+                <div class="toggle-switch" [class.on]="analyticsCookies()">
+                    <div class="knob"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-row clickable-row" (click)="toggleMarketing()">
+            <div class="category-info">
+                <h4>{{ ts.t().cookieBanner.categories.marketing.name }}</h4>
+                <p>{{ ts.t().cookieBanner.categories.marketing.description }}</p>
+            </div>
+            <div class="category-toggle">
+                <span>{{ marketingCookies() ? ts.t().cookieBanner.on : ts.t().cookieBanner.off }}</span>
+                <div class="toggle-switch" [class.on]="marketingCookies()">
+                    <div class="knob"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cookie-actions save-actions">
+        <button class="primary-btn full-width" (click)="savePreferences()">{{ ts.t().cookieBanner.saveBtn }}</button>
+    </div>
+    }
 </div>
+}

@@ -137,8 +137,19 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
         copyright: (year: number) => `© ${year} SciTheWorld. All rights reserved.`
     },
     cookieBanner: {
-        text: 'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.',
-        acceptBtn: 'Accept'
+        title: 'Cookie Settings',
+        text: 'Our website uses cookies to distinguish you from other users of our website. This helps us provide you with a more personalized experience when you browse our website and also allows us to improve our site. You can choose not to allow some types of cookies.',
+        customizeBtn: 'Customize cookie settings',
+        rejectBtn: 'Reject all cookies',
+        acceptBtn: 'Accept all cookies',
+        saveBtn: 'Save preferences',
+        categories: {
+            necessary: { name: 'Necessary', description: 'Enables security and basic functionality.', label: 'Required' },
+            analytics: { name: 'Analytics', description: 'Enables tracking of site performance.' },
+            marketing: { name: 'Marketing', description: 'Enables ads personalization and tracking.' }
+        },
+        on: 'On',
+        off: 'Off'
     },
     preloader: {
         word1: 'WE',
