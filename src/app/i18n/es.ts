@@ -137,8 +137,19 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
         copyright: (year: number) => `© ${year} SciTheWorld. Todos los derechos reservados.`
     },
     cookieBanner: {
-        text: 'Utilizamos cookies para mejorar su experiencia. Al continuar visitando este sitio, usted acepta nuestro uso de cookies.',
-        acceptBtn: 'Aceptar'
+        title: 'Configuración de cookies',
+        text: 'Nuestro sitio web utiliza cookies para distinguirle de otros usuarios. Esto nos ayuda a ofrecerle una experiencia más personalizada al navegar por nuestro sitio y también nos permite mejorarlo. Puede optar por no permitir algunos tipos de cookies.',
+        customizeBtn: 'Personalizar cookies',
+        rejectBtn: 'Rechazar todas',
+        acceptBtn: 'Aceptar todas',
+        saveBtn: 'Guardar preferencias',
+        categories: {
+            necessary: { name: 'Necesarias', description: 'Habilitan la seguridad y funcionalidad básica.', label: 'Obligatorias' },
+            analytics: { name: 'Analíticas', description: 'Permiten el seguimiento del rendimiento del sitio.' },
+            marketing: { name: 'Marketing', description: 'Habilitan la personalización de anuncios y seguimiento.' }
+        },
+        on: 'Sí',
+        off: 'No'
     },
     preloader: {
         word1: 'WE',

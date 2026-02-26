@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, signal, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { TranslationService } from '../../i18n';
+import { TranslationService } from '../../i18n/translation.service';
 
 @Component({
     selector: 'app-cookie-banner',
@@ -11,15 +11,27 @@ import { TranslationService } from '../../i18n';
 })
 export class CookieBannerComponent implements OnInit {
     isVisible = signal(false);
-    readonly ts = inject(TranslationService);
+    showCustomize = signal(false);
+    analyticsCookies = signal(false);
+    marketingCookies = signal(false);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: Object,
+        public ts: TranslationService
+    ) { }
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             const consent = localStorage.getItem('stw-cookie-consent');
-            if (!consent) {
-                // Delay slightly to not jar the user immediately
+            if (consent) {
+                try {
+                    const parsed = JSON.parse(consent);
+                    this.analyticsCookies.set(parsed.analytics || false);
+                    this.marketingCookies.set(parsed.marketing || false);
+                } catch {
+                    // ignore mapping error
+                }
+            } else {
                 setTimeout(() => {
                     this.isVisible.set(true);
                 }, 1000);
@@ -27,9 +39,42 @@ export class CookieBannerComponent implements OnInit {
         }
     }
 
-    acceptCookies() {
+    toggleCustomize() {
+        this.showCustomize.update(s => !s);
+    }
+
+    toggleAnalytics() {
+        this.analyticsCookies.update(s => !s);
+    }
+
+    toggleMarketing() {
+        this.marketingCookies.update(s => !s);
+    }
+
+    acceptAll() {
+        this.analyticsCookies.set(true);
+        this.marketingCookies.set(true);
+        this.saveConsent();
+    }
+
+    rejectAll() {
+        this.analyticsCookies.set(false);
+        this.marketingCookies.set(false);
+        this.saveConsent();
+    }
+
+    savePreferences() {
+        this.saveConsent();
+    }
+
+    private saveConsent() {
         if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('stw-cookie-consent', 'true');
+            const consent = {
+                necessary: true,
+                analytics: this.analyticsCookies(),
+                marketing: this.marketingCookies()
+            };
+            localStorage.setItem('stw-cookie-consent', JSON.stringify(consent));
             this.isVisible.set(false);
         }
     }

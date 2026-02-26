@@ -129,8 +129,19 @@ export interface Translations {
         copyright: (year: number) => string;
     };
     cookieBanner: {
+        title: string;
         text: string;
+        customizeBtn: string;
+        rejectBtn: string;
         acceptBtn: string;
+        saveBtn: string;
+        categories: {
+            necessary: { name: string; description: string; label: string };
+            analytics: { name: string; description: string };
+            marketing: { name: string; description: string };
+        };
+        on: string;
+        off: string;
     };
     preloader: {
         word1: string;

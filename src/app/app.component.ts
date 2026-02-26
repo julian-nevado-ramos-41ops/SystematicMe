@@ -13,6 +13,7 @@ import { NavBarComponent, NavCommand } from './components/nav-bar/nav-bar.compon
 import { PartStwComponent } from './components/part-stw/part-stw.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ProgramRoadmapComponent } from './components/program-roadmap/program-roadmap.component';
+import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +30,8 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     ProgramRoadmapComponent,
     HudOverlayComponent,
     PartStwComponent,
-    FooterComponent
+    FooterComponent,
+    CookieBannerComponent
   ],
   template: `
     <app-preloader />
@@ -276,6 +278,7 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     </div>
     
     <app-footer />
+    <app-cookie-banner />
 
     <!-- Modal overlay (Global) -->
     @if (activeModal()) {
