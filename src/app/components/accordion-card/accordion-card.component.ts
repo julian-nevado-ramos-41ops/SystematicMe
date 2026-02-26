@@ -24,6 +24,11 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
           <ng-content />
         </div>
       </div>
+      @if (image()) {
+        <div class="card-image" [class.show]="expanded()">
+          <img [src]="image()" [alt]="title()" />
+        </div>
+      }
     </div>
   `,
   styles: `
@@ -54,7 +59,7 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       background: #1a1a1a;
     }
 
-    /* ─── Background Image (always visible) ─── */
+    /* ─── Background Image (visible only when no card is expanded) ─── */
     .card-bg-image {
       position: absolute;
       top: 50%;
@@ -65,6 +70,11 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       z-index: 0;
       overflow: hidden;
       border-radius: 12px;
+      display: none;
+    }
+
+    :host.no-expanded .card-bg-image {
+      display: block;
     }
 
     .card-bg-image img {
@@ -76,18 +86,28 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       opacity: 0.4;
     }
 
-    :host:hover .card-bg-image img {
+    :host.no-expanded:hover .card-bg-image img {
       filter: grayscale(0%);
       opacity: 0.6;
     }
 
-    :host.expanded .card-bg-image img {
-      opacity: 0.25;
+    /* ─── Image (Right side when expanded) ─── */
+    .card-image {
+      flex: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
     }
 
-    :host.expanded:hover .card-bg-image img {
-      filter: grayscale(0%);
-      opacity: 0.35;
+    .card-image.show {
+      display: flex;
+    }
+
+    .card-image img {
+      width: 100%;
+      max-height: 40vh;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
     /* ─── Content ─── */
@@ -119,6 +139,25 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
 
     .card-body {
       display: block;
+      font-size: 1.15rem;
+      line-height: 1.6;
+    }
+
+    .card-body ul {
+      list-style-type: disc;
+      padding-left: 2.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    .card-body li {
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+
+    .card-body li::marker {
+      color: rgba(255, 255, 255, 0.7);
     }
 
     :host.collapsed .card-content {
@@ -205,8 +244,9 @@ import { Component, ChangeDetectionStrategy, input, output, booleanAttribute, si
       }
 
       /* Hide image on all mobile states */
+      .card-image,
       .card-bg-image {
-        display: none;
+        display: none !important;
       }
 
       /* On mobile collapsed: show only title */

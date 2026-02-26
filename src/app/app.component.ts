@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject, computed } from '@angular/core';
+import { TranslationService } from './i18n';
 import { HeroComponent } from './components/hero/hero.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SectionsContainerComponent } from './components/sections-container/sections-container.component';
@@ -45,17 +46,17 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
     />
 
     <app-hero 
-      title="<div>INFRASTRUCTURE TO MANAGE</div><div>YOUR CAREER LIKE A PRO</div>" 
-      subtitle="SystematicMe" 
+      [title]="ts.t().hero.title" 
+      [subtitle]="ts.t().hero.subtitle" 
       [showBrackets]="true"
       bracketsColor="var(--color-1)"
       subtitleColor="gray"
-      description=""
+      [description]="ts.t().hero.description"
     />
 
     <app-part-stw
-        titleHtml="Part of <u>SciTheWorld</u>"
-        description="<p><strong>We are the training arm at SciTheWorld:</strong></p><ol><li>The way we keep on researching and adapting to innovation.</li><li>The democratization of our greenfield, Algorithmization, so that professionals can research and adapt as fast as we do.</li></ol>"
+        [titleHtml]="ts.t().partStw.titleHtml"
+        [description]="ts.t().partStw.description"
     />
 
     <app-sections-container
@@ -71,9 +72,9 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
           [sectionIndex]="0"
           [totalSections]="4"
           [globalCurrentSection]="verticalCurrentSection()"
-          title="The problem we solve"
+          [title]="ts.t().verticalSections.section1.title"
           backgroundColor="#4AB5EA"
-          modalContent="AI, automation, and deep technological shifts do not destroy careers randomly. They destroy static professional profiles.\n\nMost professionals fail not because they lack intelligence, but because:\n<ul><li>they update too late,</li><li>they overreact under pressure,</li><li>or they gamble on abrupt career resets.</li></ul>\nSystematicMe exists to ensure that the professional identity is never static."
+          [modalContent]="ts.t().verticalSections.section1.modalContent"
           (requestModal)="onRequestModal($event)"
           (navigate)="verticalContainer.onSideNavClick($event)"
           (nextSection)="verticalContainer.navigateNext()"
@@ -86,20 +87,18 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
           [sectionIndex]="1"
           [totalSections]="4"
           [globalCurrentSection]="verticalCurrentSection()"
-          title="Why us"
+          [title]="ts.t().verticalSections.section2.title"
           backgroundColor="#FA715E"
           [isAccordionSection]="true"
           (navigate)="verticalContainer.onSideNavClick($event)"
           (nextSection)="verticalContainer.navigateNext()"
         >
           <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
-             <app-accordion-card title="CREDIBILITY" image="./img/accordion/sergio_green_world.jpeg" [expanded]="expandedVerticalCard() === 0" (clicked)="setExpandedVerticalCard(0)">
-                <p>We have a pristine track record dynamically anticipating innovation over the years. And, while doing so, we fathered Algorithmization - well beyond it was mainstream.</p>
-                <p>We have globally trained clients on this discipline across sectors. It is time to democratize that.</p>
+             <app-accordion-card [title]="ts.t().verticalSections.section2.card1Title" image="./img/accordion/sergio_green_world.jpeg" [expanded]="expandedVerticalCard() === 0" (clicked)="setExpandedVerticalCard(0)">
+                <div [innerHTML]="ts.t().verticalSections.section2.card1Content"></div>
              </app-accordion-card>
-             <app-accordion-card title="UNBEATABLE TECHNOLOGY" image="./img/accordion/sergio_receiving_prize.jpg" [expanded]="expandedVerticalCard() === 1" (clicked)="setExpandedVerticalCard(1)">
-                <p>There is a point when the job market can't absorb you. We can uniquely help you re-orientate your career towards entrepreneurship upon our algorithmic technology (venture tech).</p>
-                <p>The more we have trained you the more we know you. And so, the better the match.</p>
+             <app-accordion-card [title]="ts.t().verticalSections.section2.card2Title" image="./img/accordion/sergio_receiving_prize.jpg" [expanded]="expandedVerticalCard() === 1" (clicked)="setExpandedVerticalCard(1)">
+                <div [innerHTML]="ts.t().verticalSections.section2.card2Content"></div>
              </app-accordion-card>
           </app-accordion>
         </app-section>
@@ -109,9 +108,9 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
           [sectionIndex]="2"
           [totalSections]="4"
           [globalCurrentSection]="verticalCurrentSection()"
-          title="The method: follow, evolve, deviate"
+          [title]="ts.t().verticalSections.section3.title"
           backgroundColor="#4CD6BC"
-          modalContent="SystematicMe follows a deliberate loop:\n<br>\n<b>First, you catch up</b>\nYou start by understanding the concepts behind the way the founders think, decide, and anticipate change. In particular, wrapped around two topics: their particular experience and their overall attitude.\n<br>\n<b>Then, you evolve with us</b>\nThe system updates continuously, as we do. New technologies, new risks, new opportunities. None of us know what’s coming next and we will surely need to learn more and, even pioneer again part of the path.\n<br>\n<b>Finally, you deviate</b>\nOnce you have judgment, you deliberately build your own path, your own profile. Your professional strategy based on your own perception of risk-reward.\n<br>\n<b>Custom. Timely. Proactive.</b>\nBecause careers must be managed professionally as competitive advantages."
+          [modalContent]="ts.t().verticalSections.section3.modalContent"
           (requestModal)="onRequestModal($event)"
           (navigate)="verticalContainer.onSideNavClick($event)"
           (nextSection)="verticalContainer.navigateNext()"
@@ -124,9 +123,9 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
           [sectionIndex]="3"
           [totalSections]="4"
           [globalCurrentSection]="verticalCurrentSection()"
-          title="How learning works with us?"
+          [title]="ts.t().verticalSections.section4.title"
           backgroundColor="#EECA46"
-          modalContent="We do not start with fragmented topics. We start with real stories.\n<br>\nEach program:\n<ul><li>presents a full, complex and very significant narrative, difficult to grasp at the beginning,</li><li>breaks it into structured modules,</li><li>delivers targeted learning pills tied to that story - videos, reports, Python Notebooks, prompts… any combination.</li></ul>\nThe loop is intentional:\n<ul><li>first, the story feels complex and overwhelming (first day),</li><li>then, it becomes complex but intelligible (last day),</li><li>finally, it becomes actionable (all along your career).</li></ul>"
+          [modalContent]="ts.t().verticalSections.section4.modalContent"
           (requestModal)="onRequestModal($event)"
           (navigate)="verticalContainer.onSideNavClick($event)"
           (nextSection)="verticalContainer.navigateNext()"
@@ -151,8 +150,8 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="0"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="The road to success"
-            modalContent="SystematicMe seeks timely knowledge accumulation at a level eloquent enough for you to make decisions, challenge marketing, challenge experts…\nAnd over time:\n\t• skills compound,\n\t• risk awareness increases,\n\t• optionality grows, and\n\t• network spans.\nThis all is what we expect to converge toward success. Not immediately. But reliably."
+            [title]="ts.t().horizontalSections.section1.title"
+            [modalContent]="ts.t().horizontalSections.section1.modalContent"
             backgroundColor="#4AB5EA"
             (requestModal)="onRequestModal($event)"
             (navigate)="horizontalContainer.onSideNavClick($event)"
@@ -166,8 +165,8 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="1"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="WHO THIS IS FOR"
-            modalContent="SystematicMe is built for people who need judgment, not just skills:\n\t• professionals from mid-roles to board level,\n\t• investors,\n\t• journalists,\n\t• policymakers and civil servants.\nYou do not need to be the most technical person in the room. That will soon be a bot.\nYou need to understand context, trade-offs, and consequences.\nThis is, you need the skills required to apply your human creativity on top."
+            [title]="ts.t().horizontalSections.section2.title"
+            [modalContent]="ts.t().horizontalSections.section2.modalContent"
             backgroundColor="#FA715E"
             (requestModal)="onRequestModal($event)"
             (navigate)="horizontalContainer.onSideNavClick($event)"
@@ -181,7 +180,7 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="2"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="STUDENTS"
+            [title]="ts.t().horizontalSections.section3.title"
             backgroundColor="#4CD6BC"
             [isAccordionSection]="true"
             contentSlotHeight="51dvh"
@@ -189,22 +188,11 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             (nextSection)="horizontalContainer.navigateNext()"
         >
             <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
-                <app-accordion-card title="THIS IS NOT" [expanded]="expandedStudentsCard() === 0" (clicked)="setExpandedStudentsCard(0)">
-                    <ul>
-                        <li>a single course;</li>
-                        <li>a one-off coaching interaction; nor</li>
-                        <li>a reskilling panic button.</li>
-                    </ul>
-                    <p>Actually, often, not even the truth. At the speed the world moves, the truth isn’t easy to catch.</p>
+                <app-accordion-card [title]="ts.t().horizontalSections.section3.card1Title" [expanded]="expandedStudentsCard() === 0" (clicked)="setExpandedStudentsCard(0)">
+                    <div [innerHTML]="ts.t().horizontalSections.section3.card1Content"></div>
                 </app-accordion-card>
-                <app-accordion-card title="THIS IS" [expanded]="expandedStudentsCard() === 1" (clicked)="setExpandedStudentsCard(1)">
-                    <ul>
-                        <li>a way for the less techie and quantitative to gain judgement by seeking the truth from experts while keeping up with tech and innovation advances;</li>
-                        <li>a continuous system that evolves with you, a companion for the rest of your career;</li>
-                        <li>a traceable portfolio of skills, risks, and options over time;</li>
-                        <li>a way to navigate change gradually, deliberately, and intelligently; and</li>
-                        <li>in the limit, for those that qualify, a technology partner as co-investor for certain members of the community that feel the need to become entrepreneurs.</li>
-                    </ul>
+                <app-accordion-card [title]="ts.t().horizontalSections.section3.card2Title" [expanded]="expandedStudentsCard() === 1" (clicked)="setExpandedStudentsCard(1)">
+                    <div [innerHTML]="ts.t().horizontalSections.section3.card2Content"></div>
                 </app-accordion-card>
             </app-accordion>
         </app-section>
@@ -215,7 +203,7 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="3"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="TEACHERS"
+            [title]="ts.t().horizontalSections.section4.title"
             backgroundColor="#EECA46"
             [isAccordionSection]="true"
             contentSlotHeight="51dvh"
@@ -223,19 +211,11 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             (nextSection)="horizontalContainer.navigateNext()"
         >
             <app-accordion mode="click" [blockCount]="2" width="100%" height="100%">
-                 <app-accordion-card title="THIS IS NOT" [expanded]="expandedTeachersCard() === 0" (clicked)="setExpandedTeachersCard(0)">
-                    <ul>
-                        <li>a social network open to any expert. You need to be proposed and, then, qualify.</li>
-                        <li>a course to which you have to commit, compromising your agenda.</li>
-                        <li>for you to talk about deep background - unless you want to, we take care of that.</li>
-                    </ul>
+                 <app-accordion-card [title]="ts.t().horizontalSections.section4.card1Title" [expanded]="expandedTeachersCard() === 0" (clicked)="setExpandedTeachersCard(0)">
+                    <div [innerHTML]="ts.t().horizontalSections.section4.card1Content"></div>
                  </app-accordion-card>
-                 <app-accordion-card title="THIS IS" [expanded]="expandedTeachersCard() === 1" (clicked)="setExpandedTeachersCard(1)">
-                    <ul>
-                        <li>for you to build on a topic, not to describe it.</li>
-                        <li>For you to convey your wisdom - the cherry-on-top, the latest insight, a timely opinion…</li>
-                        <li>a way to become influential in a world dominated by social networks’ influencers. The users of this channel are eager to go the extra-mile, to analyze and think of what you have to say. You are the spark that makes them think.</li>
-                    </ul>
+                 <app-accordion-card [title]="ts.t().horizontalSections.section4.card2Title" [expanded]="expandedTeachersCard() === 1" (clicked)="setExpandedTeachersCard(1)">
+                    <div [innerHTML]="ts.t().horizontalSections.section4.card2Content"></div>
                  </app-accordion-card>
             </app-accordion>
         </app-section>
@@ -246,8 +226,8 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="4"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="Career hedging, not gambling"
-            modalContent="SystematicMe’s approach to career management inherits risk management practices from the investment industry - in the end, the most valuable asset you have to trade is you own career.\nThus, the better we understand:\n\t• your skills - your career risks and assets,\n\t• your efforts - the skin you put in the game,\nthe better we can propose:\n\t• short learning pills,\n\t• deeper, longer programs,\n\t• open or free resources where appropriate,\n\t• paid, high-leverage learning only when justified.\nThis is, after-uni education built around custom, timely skills . Career built upon optionality, not credentials."
+            [title]="ts.t().horizontalSections.section5.title"
+            [modalContent]="ts.t().horizontalSections.section5.modalContent"
             backgroundColor="#FD5F65"
             (requestModal)="onRequestModal($event)"
             (navigate)="horizontalContainer.onSideNavClick($event)"
@@ -261,8 +241,8 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="5"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="Only efficient efforts"
-            modalContent="By continuously understanding your roadmap in a micro level of skills, we:\n\t• avoid charging you twice for overlapping concepts (and wasting your time),\n\t• treat you as an individual, not a cohort.\nSome guidance is algorithmic. Some is personal."
+            [title]="ts.t().horizontalSections.section6.title"
+            [modalContent]="ts.t().horizontalSections.section6.modalContent"
             backgroundColor="#4AB5EA"
             (requestModal)="onRequestModal($event)"
             (navigate)="horizontalContainer.onSideNavClick($event)"
@@ -276,17 +256,15 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
             [sectionIndex]="6"
             [totalSections]="7"
             [globalCurrentSection]="horizontalCurrentSection()"
-            title="IN ONE SENTENCE"
+            [title]="ts.t().horizontalSections.section7.title"
             backgroundColor="#FA715E"
-            [modalContent]="inOneSentenceModal"
+            [modalContent]="inOneSentenceModal()"
             (requestModal)="onRequestModal($event)"
             (navigate)="horizontalContainer.onSideNavClick($event)"
             (nextSection)="horizontalContainer.navigateNext()"
         >
-             <div class="content-wrapper" style="width: 100%; display: flex; justify-content: flex-start;">
-                <p class="section-text" style="color: white; max-width: 800px; text-align: left; margin: 0; font-style: italic; opacity: 0.9;">
-                    [ SystematicMe is your lifelong career infrastructure—designed to help you stay valuable, independent, and antifragile in an world of continuous innovation. ]
-                </p>
+             <div class="quote-wrapper">
+                 <p class="quote-text">{{ ts.t().horizontalSections.section7.contentHtml }}</p>
              </div>
         </app-section>
 
@@ -334,6 +312,26 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
         font-size: 1.1rem;
         line-height: 1.6;
         color: #1a1a1a; /* Dark text for light backgrounds */
+    }
+
+    .quote-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .quote-text {
+        font-family: 'Inter', sans-serif;
+        font-style: italic;
+        font-weight: 300;
+        font-size: clamp(1rem, 2vw, 1.35rem);
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.02em;
+        margin-top: 2rem;
+        margin-bottom: 0;
+        max-width: 800px;
+        text-align: left;
     }
 
     /* ─── Modal (Global Styles) ─── */
@@ -435,14 +433,15 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
 
     .modal-text ul {
       list-style-type: disc;
-      padding-left: 1.5rem;
+      padding-left: 2.5rem;
       margin-top: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      margin-left: 1rem;
     }
 
     .modal-text li {
       margin-bottom: 0.75rem;
-      padding-left: 0.25rem;
+      padding-left: 0.5rem;
     }
 
     .modal-text li::marker {
@@ -467,15 +466,11 @@ import { ProgramRoadmapComponent } from './components/program-roadmap/program-ro
   `],
 })
 export class AppComponent {
+  readonly ts = inject(TranslationService);
+
   activeModal = signal<{ title: string, content: string, color: string } | null>(null);
 
-  inOneSentenceModal = `Yes, the sentence is the first with which we introduced ourselves. By reading this website, you have already experienced mildly our learning approach (<u>complex and overwhelming > complex but intelligible</u>). What probably lacked a lot of meaning just a few minutes may at this stage resonate with fair accuracy.
-<br><br>
-Now, you have probably developed an initial level of judgment around why <b>career management must be managed like a pro</b>. This is, <b>approached structurally, over the long term, and supported by career management infrastructure</b>—even through corporate and investment technology in the most radical transition of all: entrepreneurship.
-<br>
-Next? Action (<u>actionable</u>) - join us. 
-<br>
-But there is no need to decide now. Let the ideas settle. Return when you fully grasp both the relevance of what we propose and why we are uniquely positioned to deliver it. <b>You will know when</b>.`;
+  inOneSentenceModal = computed(() => this.ts.t().horizontalSections.section7.modalContent);
 
   // Track current sections for internal navigation
   verticalCurrentSection = signal(0);
@@ -524,12 +519,12 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
     this.expandedTeachersCard.update(current => current === index ? -1 : index);
   }
 
-  navItems = signal<NavCommand[]>([
-    { label: 'ABOUT US', link: '#vertical-sections' },
-    { label: 'PROGRAMMS', link: '#program-roadmap' },
-    { label: 'THE ROAD', link: '#horizontal-sections' },
+  navItems = computed<NavCommand[]>(() => [
+    { label: this.ts.t().nav.aboutUs, link: '#vertical-sections' },
+    { label: this.ts.t().nav.programs, link: '#program-roadmap' },
+    { label: this.ts.t().nav.theRoad, link: '#horizontal-sections' },
     {
-      label: 'THE GROUP',
+      label: this.ts.t().nav.theGroup,
       children: [
         { label: 'SciTheWorld', link: 'https://scitheworld.com' },
         { label: 'Algorithmization', link: 'https://algorithmization.com' },
@@ -537,6 +532,6 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
         { label: 'Learning~Adaptive', link: 'https://learningadaptive.com' }
       ]
     },
-    { label: 'CONTACT', link: '#contact' }
+    { label: this.ts.t().nav.contact, link: '#contact' }
   ]);
 }

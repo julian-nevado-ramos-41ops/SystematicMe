@@ -7,6 +7,8 @@ import {
   OnDestroy,
   input,
   booleanAttribute,
+  ElementRef,
+  inject,
 } from '@angular/core';
 
 @Component({
@@ -33,27 +35,56 @@ export class SpacebarButtonComponent implements OnDestroy {
   private pressTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly ANIMATION_DURATION = 1000;
 
-  private isHandlingSpaceKey = false;
+  private isHandlingPress = false;
+  private elementRef = inject(ElementRef);
+
+  private isCurrentSection(): boolean {
+    let sectionEl: HTMLElement | null = this.elementRef.nativeElement;
+    while (sectionEl && sectionEl.tagName !== 'APP-SECTION') {
+      sectionEl = sectionEl.parentElement;
+    }
+    if (!sectionEl) return false;
+
+    let containerEl: HTMLElement | null = sectionEl;
+    while (containerEl && containerEl.tagName !== 'APP-SECTIONS-CONTAINER') {
+      containerEl = containerEl.parentElement;
+    }
+    if (!containerEl) return false;
+
+    // Ensure the container is somewhat visible in the viewport before acting on spacebar
+    const rect = containerEl.getBoundingClientRect();
+    const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
+    if (!isInView) return false;
+
+    const sections = Array.from(containerEl.querySelectorAll('app-section'));
+    const myIndex = sections.indexOf(sectionEl);
+    const visibleIndex = sections.findIndex(s => s.classList.contains('visible'));
+
+    return myIndex === visibleIndex;
+  }
 
   private keydownHandler = (event: KeyboardEvent) => {
     if (event.code === 'Space') {
-      if (this.isActive()) {
-        event.preventDefault(); // Always prevent scrolling
-        if (!event.repeat) {
-          this.isHandlingSpaceKey = true;
-          this.startPress(event);
-        }
-      } else if (this.isHandlingSpaceKey) {
-        // If we started handling this spacebar press when active, continue 
-        // preventing default until keyup, even if we become inactive mid-press
+      // Si este botón inició la pulsación actual, seguir previniendo el scroll
+      if (this.isHandlingPress && event.repeat) {
         event.preventDefault();
+        return;
+      }
+
+      // Solo responder si esta sección es la activa DOM-wise
+      if (!this.isCurrentSection()) return;
+
+      event.preventDefault();
+      if (!event.repeat) {
+        this.isHandlingPress = true;
+        this.startPress(event);
       }
     }
   };
 
   private keyupHandler = (event: KeyboardEvent) => {
     if (event.code === 'Space') {
-      this.isHandlingSpaceKey = false;
+      this.isHandlingPress = false;
       this.cancelPress();
     }
   };
