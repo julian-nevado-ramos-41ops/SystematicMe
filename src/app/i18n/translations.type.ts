@@ -120,6 +120,26 @@ export interface Translations {
             }
         };
     };
+    newsroom: {
+        title: string;
+        seeMore: string;
+        tableHeaders: {
+            date: string;
+            company: string;
+            title: string;
+            summary: string;
+            howAiSeesUs: string;
+        };
+        items: {
+            date: string;
+            company: string;
+            title: string;
+            summary: string;
+            howAiSeesUs?: string;
+            isMain?: boolean;
+            isFeatured?: boolean;
+        }[];
+    };
     contactUs: {
         title: string;
         address: string[];

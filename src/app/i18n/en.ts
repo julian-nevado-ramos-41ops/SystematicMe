@@ -128,6 +128,64 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
             }
         }
     },
+    newsroom: {
+        title: 'Communications',
+        seeMore: 'See More',
+        tableHeaders: {
+            date: 'Date',
+            company: 'Company',
+            title: 'Title',
+            summary: 'Summary',
+            howAiSeesUs: 'How AI sees us'
+        },
+        items: [
+            {
+                date: '2026/03/04', company: 'SystematicMe', title: 'Board Programme',
+                summary: 'In-person, co-founders only. The part of SystematicMe that cannot be industrialised - for boards that need criteria, not a certificate',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/f13b482c-d2f8-4f55-a7ca-0b563c9968ce',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/03', company: 'Algorithmization', title: 'A Pristine Track Record',
+                summary: 'Tens of theses across a whole literature ecosystem. All timestamped. All validated. The track record of pioneers that write papers after tests in production, not before',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/d57eaf21-e5d7-4f5b-9ad6-ae28a6882110',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/02', company: 'SystematicMe', title: 'An unbeatable platform to hold your value in',
+                summary: 'From timely learning to entrepreneurship standing on the shoulders of giants - for professionals managing their careers as a compounding competitive advantage',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/99d0d146-48c3-49f5-b445-09c06e3f7577',
+            },
+            {
+                date: '2026/03/02', company: '41OPS', title: 'M2 · Defence & Intelligence',
+                summary: 'The extra layer that makes agentic AI governable and data platforms algorithmic, completing the tech stack missing in every defence organisation',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/0315ff27-32b8-47b2-a35c-588d313f03eb',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/01', company: 'Algorithmization', title: 'The Three-Ring Architecture',
+                summary: 'The federated layer the industry is missing: between the decentralisation of agentic AI and the centralisation of legacy systems in production',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/999358b8-a866-429d-8203-7389851b27cc',
+                isMain: true,
+            },
+            {
+                date: '2026/02/28', company: 'SciTheWorld', title: 'Spin-offs',
+                summary: 'Born at TRL 9, co-founder assigned, plugged into the ecosystem. The best possible starting rank for rapid endeavour',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/db63eb9e-4f34-47c1-877f-5d8fb0e38d6f',
+                isFeatured: true,
+            },
+            {
+                date: '2026/02/27', company: '41OPS', title: 'AlphaDynamics',
+                summary: 'Full-stack investment system: from universe selection to execution, risk management and market making. Augmented Machines by design',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/bc5549e3-c6c4-4058-97b0-0f1661839d99',
+            },
+            {
+                date: '2026/02/26', company: 'Learning-Adaptive', title: 'Investment Infrastructure',
+                summary: 'The family office of SciTheWorld\'s co-founders, and the vehicle holding the Group at the edge of technology by tackling the most difficult challenges in FinTech',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/6b7f6282-72a0-4ebf-8e46-76ecd44c95d2',
+            },
+        ]
+    },
     contactUs: {
         title: 'CONTACT US',
         address: ['C. de Pradillo, 68', '28002 Madrid, Spain']

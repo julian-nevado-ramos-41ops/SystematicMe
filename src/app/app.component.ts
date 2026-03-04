@@ -14,6 +14,8 @@ import { PartStwComponent } from './components/part-stw/part-stw.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ProgramRoadmapComponent } from './components/program-roadmap/program-roadmap.component';
 import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
+import { NewsroomComponent } from './components/newsroom/newsroom.component';
+
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +33,8 @@ import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.
     HudOverlayComponent,
     PartStwComponent,
     FooterComponent,
-    CookieBannerComponent
+    CookieBannerComponent,
+    NewsroomComponent
   ],
   template: `
     <app-preloader />
@@ -272,6 +275,14 @@ import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.
 
     </app-sections-container>
 
+    <div class="newsroom-block" id="newsroom">
+      <app-newsroom 
+        [title]="ts.t().newsroom.title"
+        [seeMoreText]="ts.t().newsroom.seeMore"
+        [tableHeaders]="ts.t().newsroom.tableHeaders"
+        [news]="ts.t().newsroom.items" 
+      />
+    </div>
 
     <div id="contact" class="contact-block">
       <app-contact-us />

@@ -128,6 +128,80 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
             }
         }
     },
+    newsroom: {
+        title: 'Comunicaciones',
+        seeMore: 'Ver más',
+        tableHeaders: {
+            date: 'Fecha',
+            company: 'Compañía',
+            title: 'Título',
+            summary: 'Resumen',
+            howAiSeesUs: 'Cómo nos ve la IA'
+        },
+        items: [
+            {
+                date: '2026/03/04',
+                company: 'SystematicMe',
+                title: 'Programa para Consejos de Administración',
+                summary: 'Presencial, solo para cofundadores. La parte de SystematicMe que no se puede industrializar: para consejos que necesitan criterio, no un certificado',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/f13b482c-d2f8-4f55-a7ca-0b563c9968ce',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/03',
+                company: 'Algorithmization',
+                title: 'Un Historial de Récord en Innovación',
+                summary: 'Decenas de tesis a través de un ecosistema de publicaciones. Todas con marca de tiempo. Todas validadas. El historial de pioneros que escriben artículos después de las pruebas en producción, no antes',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/d57eaf21-e5d7-4f5b-9ad6-ae28a6882110',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/02',
+                company: 'SystematicMe',
+                title: 'Una plataforma inmejorable para mantener tu valor',
+                summary: 'Desde el aprendizaje oportuno hasta el emprendimiento a hombros de gigantes: para profesionales que gestionan sus carreras como una ventaja competitiva',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/99d0d146-48c3-49f5-b445-09c06e3f7577',
+            },
+            {
+                date: '2026/03/02',
+                company: '41OPS',
+                title: 'M2 · Defensa e Inteligencia',
+                summary: 'La capa adicional que hace que la IA agéntica sea gobernable y las plataformas de datos sean algorítmicas, completando el stack tecnológico que le falta a toda organización de defensa',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/0315ff27-32b8-47b2-a35c-588d313f03eb',
+                isFeatured: true,
+            },
+            {
+                date: '2026/03/01',
+                company: 'Algorithmization',
+                title: 'La Arquitectura de Tres Anillos',
+                summary: 'La capa federada que le falta a la industria: entre la descentralización de la IA agéntica y la centralización de los sistemas legacy en producción',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/999358b8-a866-429d-8203-7389851b27cc',
+                isMain: true,
+            },
+            {
+                date: '2026/02/28',
+                company: 'SciTheWorld',
+                title: 'Spin-offs',
+                summary: 'Nacidas en TRL 9, con cofundador asignado y conectadas al ecosistema. La mejor posición de partida posible para un emprendimiento rápido',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/db63eb9e-4f34-47c1-877f-5d8fb0e38d6f',
+                isFeatured: true,
+            },
+            {
+                date: '2026/02/27',
+                company: '41OPS',
+                title: 'AlphaDynamics',
+                summary: 'Sistema de inversión full-stack: desde la selección del universo hasta la ejecución, gestión de riesgos y creación de mercado (market making). Máquinas Aumentadas por diseño',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/bc5549e3-c6c4-4058-97b0-0f1661839d99',
+            },
+            {
+                date: '2026/02/26',
+                company: 'Learning-Adaptive',
+                title: 'Infraestructura de Inversión',
+                summary: 'El family office de los cofundadores de SciTheWorld, y el vehículo que mantiene al Grupo en la vanguardia tecnológica abordando los desafíos más difíciles de la tecnología financiera',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/6b7f6282-72a0-4ebf-8e46-76ecd44c95d2',
+            },
+        ]
+    },
     contactUs: {
         title: 'CONTÁCTANOS',
         address: ['C. de Pradillo, 68', '28002 Madrid, España']
