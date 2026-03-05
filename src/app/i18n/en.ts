@@ -169,7 +169,7 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
                 'The importance of a Ranked Transformation Agenda: 1st wish list in YCombinator 2026; first step in Extreme Efficient Nations; proprietary algorithm as a competitive advantage'
             ],
             p2c1: [
-                'Narratives from the field:',
+                'Narratives you will be exposed to:',
                 'The day I lost $500k on operational risk',
                 'When you go up, some want you down',
                 'From zero to hero and from hero to zero!',
