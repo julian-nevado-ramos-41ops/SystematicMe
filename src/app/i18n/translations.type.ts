@@ -86,6 +86,8 @@ export interface Translations {
             monthPlaceholder: string;
             monthSep: string;
             monthFeb: string;
+            monthOct: string;
+            monthMar: string;
             submitBtn: string;
             successTitle: string;
             successSubtitle: string;
@@ -118,6 +120,12 @@ export interface Translations {
                 price: { name: string; content: string };
                 availability: { name: string; content: string };
             }
+        };
+        carousels: {
+            p1c1: string[];
+            p1c2: string[];
+            p2c1: string[];
+            p2c2: string[];
         };
     };
     newsroom: {

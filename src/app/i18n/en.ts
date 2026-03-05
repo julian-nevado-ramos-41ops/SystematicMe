@@ -94,6 +94,8 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
             monthPlaceholder: 'Select a month',
             monthSep: 'September',
             monthFeb: 'February',
+            monthOct: 'October',
+            monthMar: 'March',
             submitBtn: 'Submit',
             successTitle: 'Thank you!',
             successSubtitle: 'We\'ll be in touch shortly.'
@@ -126,6 +128,79 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
                 price: { name: 'Price', content: 'TBA' },
                 availability: { name: 'Availability', content: 'forthcoming.' }
             }
+        },
+        carousels: {
+            p1c1: [
+                'Narratives you will be exposed to:',
+                'Maximal efficiency: why new companies shall become ecosystems',
+                'Algo trading is the supreme challenge.',
+                'The I in AI is bounded by Human I. For good and bad. Unless there is an accidental discovery (quite often the case)',
+                'When there is a technology change it is time to revisit the academic theory',
+                'Deal with your career as if it was your investment portfolio? Why? Because it is your main investment.',
+                'Custom SaaS > DIY > SaaS',
+                'You are not training your LLM. It\'s you who is being trained to use it.',
+                'The machines are an 8 over 10. That\'s your new benchmark — not Bob (your mediocre colleague)',
+                'When you are given the responsibility to realistically orchestrate the transformation of a whole country.',
+                'Applied Science is not Science Applied. Why the confusion?',
+                'Influencer (passive attention) vs influential (active attention)',
+                'Everyone is a Cervantes. Beware of the noise that data can add to the model — small data is often the right one.',
+                'Venture tech: why capital? There are so many other assets to be input into a company: tech, IP, connections...',
+                'Theory is bounded by tech. Legacy tech is a major theoretical burden. When there is a technology change it is time to revisit the academic theory.',
+                'Humanities: Orthogonal, New-Dimensional Art.'
+            ],
+            p1c2: [
+                'Blocks and pills you will be given:',
+                'Computational Statistics: The L in ML. Three main types. Trial and error science vs theorems-driven. Data science as an evolution of Biostatistics, Econometrics, etc.',
+                'Traditional Statistics. Basic assumptions, distributions, OLS, dummies...',
+                'The lost piece in AI: interconnection Statistics and Neural Networks',
+                'Recent AI hype\'s myopia: AI = LLM. However, LLM = RL + Neural Nets + UX upon massive data.',
+                'L is y=f(x) + u; M is if-thens. M1 vs M2',
+                'M2 = Data MAPs',
+                'Use cases: The Cube',
+                'Transformation is AI consumption via AI OPS (41OPS? because 42OPS already taken)',
+                'Algo trading.',
+                'Investment: trilogy (provocation: 90s tech => theory that is tactical yet becomes strategic => 20s tech unlocks revisiting)',
+                'Banking vertical integration (tech synergies at the core)',
+                'Cognitive warfare (combine departments)',
+                'Novel cyber security - algorithmic, proprietary and core.',
+                'Why now CEOs accept external help on digitalization technology? Because they failed trying themselves with consultants',
+                'The 3 Ring Tech: how to deal with LLMs-based Agentic AI',
+                'The 3 Layer Company Model: how to put order on your end-to-end transformation',
+                'The importance of a Ranked Transformation Agenda: 1st wish list in YCombinator 2026; first step in Extreme Efficient Nations; proprietary algorithm as a competitive advantage'
+            ],
+            p2c1: [
+                'Narratives from the field:',
+                'The day I lost $500k on operational risk',
+                'When you go up, some want you down',
+                'From zero to hero and from hero to zero!',
+                'Be humble with the challenge, not with the social impact',
+                'Zoom-out. Judgement is in the forest, not in the trees',
+                'How I ended up being an exception in the best hedge fund in history',
+                'Why 41OPS? Because 42OPS was already taken',
+                'Why Twitter fired a high percentage and it all went well',
+                'I never wanted to be an entrepreneur',
+                'Creating the company you wanted to work for',
+                'My last decade: a massive Sudoku, several advanced psychotechnical tests and being resilient to the Liar\'s Game.',
+                'Fuck you money is not fuck you utility. Beware.'
+            ],
+            p2c2: [
+                'Blocks and pills you will be given:',
+                'Computational Statistics: The L in ML. Three main types. Trial and error science vs theorems-driven. Data science as an evolution of Biostatistics, Econometrics, etc.',
+                'Traditional Statistics. Basic assumptions, distributions, OLS, dummies...',
+                'Recent AI hype\'s myopia: AI = LLM. However, LLM = RL + Neural Nets + UX upon massive data.',
+                'L is y=f(x) + u; M is if-thens. M1 vs M2',
+                'Why now CEOs accept external help on digitalization technology? Because they failed trying themselves with consultants',
+                'AI, Quantum and Blockchain, overall',
+                'Augmented Machines',
+                'AI OPS is everything',
+                'Key skills: writing, maths, microeconomics to play the game and do not get frustrated and creativity to go the extra mile',
+                'GenZ and GenX the ones most at risk: attitude and age in the AI era',
+                'Write fast, read slow',
+                'Basic finance of your career: Optimize for VaR vs for Expectation vs for Dreaming',
+                'If you are sure it\'s you who is going to be promoted, it could eventually be you. Else, unlikely. This is not always about Labour\'s Value of the Marginal Product',
+                'Distinguish influentials from influencers — quite the trap',
+                'FOMO is the consequence of marketing. Filter out the toxicity from the information you get.'
+            ]
         }
     },
     newsroom: {
@@ -222,7 +297,8 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
             { name: 'Finovate: Innovator of the Year', category: 'Finalist', project: 'Our pioneer work on Agentic AI', year: '2025' },
             { name: 'Bankig Tech Awards: Best Tech of the Future: AI and Data', category: 'Winner', project: 'Our Fractal Platform', year: '2024' },
             { name: 'CogX: Best Innovation in Simulation', category: 'Winner', project: 'Core of our Virtual Reality Simulation', year: '2020' },
-            { name: 'Banking Tech Awards: Best Trading Platform', category: 'Winner', project: 'Sergio`s UCL PhD Thesis at BBVA', year: '2017' }
+            { name: 'Banking Tech Awards: Best Trading Platform', category: 'Winner', project: 'Sergio`s UCL PhD Thesis at BBVA', year: '2017' },
+            { name: 'UK EPSRC: Impact in the Digital Economy', category: 'Winner', project: 'Avatar Calibration as a way to minimize AI\'s negative impact in labour', year: '2015' }
         ]
     },
     common: {
