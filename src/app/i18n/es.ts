@@ -169,7 +169,7 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
                 'La importancia de una Agenda de Transformación Clasificada: 1ª lista de deseos en YCombinator 2026; primer paso en Naciones Extremadamente Eficientes; algoritmo propietario como ventaja competitiva'
             ],
             p2c1: [
-                'Narrativas desde el terreno:',
+                'Narrativas a las que estarás expuesto:',
                 'El día que perdí 500.000 dólares por riesgo operativo',
                 'Cuando subes, algunos quieren que bajes',
                 '¡De cero a héroe y de héroe a cero!',

@@ -88,7 +88,7 @@ import { Component, ChangeDetectionStrategy, input, computed } from '@angular/co
     }
 
     .animate-scroll {
-      animation: scroll 60s linear infinite;
+      animation: scroll 110s linear infinite;
     }
 
     .animate-scroll:hover {
