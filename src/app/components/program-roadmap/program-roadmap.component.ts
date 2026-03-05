@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
 import { TranslationService } from '../../i18n';
+import { PhraseCarouselComponent } from '../phrase-carousel/phrase-carousel.component';
 
 interface RoadmapItem {
   name: string;
@@ -16,6 +17,7 @@ interface Program {
 @Component({
   selector: 'app-program-roadmap',
   standalone: true,
+  imports: [PhraseCarouselComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'roadmap-container',
@@ -45,8 +47,13 @@ interface Program {
                 <label for="joinMonth">{{ ts.t().roadmap.joinModal.monthLabel }}</label>
                 <select id="joinMonth" name="month" required>
                   <option value="" disabled selected>{{ ts.t().roadmap.joinModal.monthPlaceholder }}</option>
-                  <option value="september">{{ ts.t().roadmap.joinModal.monthSep }}</option>
-                  <option value="february">{{ ts.t().roadmap.joinModal.monthFeb }}</option>
+                  @if (activeProgramIndex() === 0) {
+                    <option value="september">{{ ts.t().roadmap.joinModal.monthSep }}</option>
+                    <option value="february">{{ ts.t().roadmap.joinModal.monthFeb }}</option>
+                  } @else {
+                    <option value="october">{{ ts.t().roadmap.joinModal.monthOct }}</option>
+                    <option value="march">{{ ts.t().roadmap.joinModal.monthMar }}</option>
+                  }
                 </select>
               </div>
               <button type="submit" class="submit-btn">{{ ts.t().roadmap.joinModal.submitBtn }}</button>
@@ -69,7 +76,7 @@ interface Program {
           <h2 class="title" style="margin-bottom: 3rem;">{{ ts.t().roadmap.title }}</h2>
         </div>
 
-        @for (program of programs(); track $index) {
+        @for (program of programs(); track $index; let programIndex = $index) {
           <div class="program-block">
             <h3 class="program-title">{{ program.title }}</h3>
             <ul class="roadmap-table">
@@ -79,7 +86,7 @@ interface Program {
                   <span class="col-name">{{ item.name }}</span>
                   @if (item.isAction) {
                     <span class="col-content">
-                      <button class="join-btn" (click)="openForm()">{{ item.content }}</button>
+                      <button class="join-btn" (click)="openForm(programIndex)">{{ item.content }}</button>
                     </span>
                   } @else {
                     <span class="col-content" [innerHTML]="item.content"></span>
@@ -87,6 +94,9 @@ interface Program {
                 </li>
               }
             </ul>
+            @for (carousel of programCarousels()[programIndex]; track $index) {
+              <app-phrase-carousel [phrases]="carousel" />
+            }
             <div class="mobile-program-image">
               <img src="./img/tables/img_table.png" alt="Program illustration" />
             </div>
@@ -450,6 +460,18 @@ export class ProgramRoadmapComponent {
   readonly ts = inject(TranslationService);
   showJoinForm = signal(false);
   formSubmitted = signal(false);
+  activeProgramIndex = signal(0);
+
+  // ── Carousel data ──────────────────────────────────────────────────
+
+  /** Lookup matrix: programCarousels()[programIndex] = [carousel1, carousel2] */
+  programCarousels = computed<string[][][]>(() => {
+    const c = this.ts.t().roadmap.carousels;
+    return [
+      [c.p1c1, c.p1c2],
+      [c.p2c1, c.p2c2],
+    ];
+  });
 
   programs = computed<Program[]>(() => {
     const r = this.ts.t().roadmap;
@@ -479,14 +501,15 @@ export class ProgramRoadmapComponent {
           { ...r.program2.items.modules, indent: true },
           { ...r.program2.items.pills, indent: true },
           { ...r.program2.items.customQa, indent: true },
-          r.program2.items.price,
-          r.program2.items.availability
+          { ...r.program2.items.price, content: '€600' },
+          { ...r.program2.items.availability, content: r.program1.items.availability.content, isAction: true }
         ]
       }
     ];
   });
 
-  openForm() {
+  openForm(index: number = 0) {
+    this.activeProgramIndex.set(index);
     this.formSubmitted.set(false);
     this.showJoinForm.set(true);
   }
@@ -500,6 +523,9 @@ export class ProgramRoadmapComponent {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     formData.append('source', window.location.hostname || 'systematicme');
+
+    const selectedProgram = this.programs()[this.activeProgramIndex()];
+    formData.append('program', selectedProgram.title);
 
     try {
       await fetch('https://platform.scitheworld.com/systematicme_submit_form/', {

@@ -94,6 +94,8 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
             monthPlaceholder: 'Seleccione un mes',
             monthSep: 'Septiembre',
             monthFeb: 'Febrero',
+            monthOct: 'Octubre',
+            monthMar: 'Marzo',
             submitBtn: 'Enviar',
             successTitle: '¡Gracias!',
             successSubtitle: 'Nos pondremos en contacto en breve.'
@@ -126,6 +128,79 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
                 price: { name: 'Precio', content: 'Por anunciar' },
                 availability: { name: 'Disponibilidad', content: 'Próximamente.' }
             }
+        },
+        carousels: {
+            p1c1: [
+                'Narrativas a las que estarás expuesto:',
+                'Eficiencia máxima: por qué las nuevas empresas deberán convertirse en ecosistemas',
+                'El trading algorítmico es el desafío supremo.',
+                'La I en IA está limitada por la I humana. Para bien y para mal. A menos que haya un descubrimiento accidental (lo cual ocurre con bastante frecuencia)',
+                'Cuando hay un cambio tecnológico es momento de revisar la teoría académica',
+                '¿Manejar tu carrera como si fuera tu cartera de inversiones? ¿Por qué? Porque es tu principal inversión.',
+                'SaaS a medida > DIY (hazlo tú mismo) > SaaS',
+                'Tú no estás entrenando a tu LLM. Eres tú quien está siendo entrenado para usarlo.',
+                'Las máquinas son un 8 sobre 10. Ese es tu nuevo punto de referencia, no Bob (tu colega mediocre)',
+                'Cuando te dan la responsabilidad de orquestar de manera realista la transformación de todo un país.',
+                'La Ciencia Aplicada no es simplemente aplicar la ciencia. ¿A qué se debe la confusión?',
+                'Influencer (atención pasiva) vs influyente (atención activa)',
+                'Todo el mundo es un Cervantes. Cuidado con el ruido que los datos pueden añadir al modelo: los "small data" (datos pequeños) suelen ser los correctos.',
+                'Venture tech (tecnología de riesgo): ¿por qué capital? Hay muchos otros activos que aportar a una empresa: tecnología, propiedad intelectual, contactos...',
+                'La teoría está limitada por la tecnología. La tecnología obsoleta (legacy) es una gran carga teórica. Cuando hay un cambio tecnológico es momento de revisar la teoría académica.',
+                'Humanidades: Arte Ortogonal de Nueva Dimensión.'
+            ],
+            p1c2: [
+                'Bloques y píldoras que recibirás:',
+                'Estadística Computacional: La L en ML (Machine Learning). Tres tipos principales. Ciencia de ensayo y error vs impulsada por teoremas. La ciencia de datos como evolución de la Bioestadística, la Econometría, etc.',
+                'Estadística Tradicional. Supuestos básicos, distribuciones, MCO (Mínimos Cuadrados Ordinarios), variables ficticias (dummies)...',
+                'La pieza perdida en la IA: interconexión entre Estadística y Redes Neuronales',
+                'La miopía del reciente furor por la IA: IA = LLM. Sin embargo, LLM = RL (Aprendizaje por Refuerzo) + Redes Neuronales + UX sobre datos masivos.',
+                'L es y=f(x) + u; M son los condicionales (if-then). M1 vs M2',
+                'M2 = MAPs de Datos',
+                'Casos de uso: El Cubo',
+                'La transformación es el consumo de IA a través de AI OPS (¿41OPS? porque 42OPS ya estaba cogido)',
+                'Trading algorítmico.',
+                'Inversión: trilogía (provocación: la tecnología de los 90 => teoría que es táctica pero se vuelve estratégica => la tecnología de los años 20 desbloquea su revisión)',
+                'Integración vertical bancaria (sinergias tecnológicas en el núcleo)',
+                'Guerra cognitiva (combinar departamentos)',
+                'Ciberseguridad novedosa: algorítmica, propietaria y fundamental.',
+                '¿Por qué ahora los CEOs aceptan ayuda externa en tecnología de digitalización? Porque fracasaron intentándolo ellos mismos con consultores',
+                'La Tecnología de los 3 Anillos: cómo lidiar con la IA Agéntica basada en LLMs',
+                'El Modelo de Empresa de 3 Capas: cómo poner orden en tu transformación integral (end-to-end)',
+                'La importancia de una Agenda de Transformación Clasificada: 1ª lista de deseos en YCombinator 2026; primer paso en Naciones Extremadamente Eficientes; algoritmo propietario como ventaja competitiva'
+            ],
+            p2c1: [
+                'Narrativas desde el terreno:',
+                'El día que perdí 500.000 dólares por riesgo operativo',
+                'Cuando subes, algunos quieren que bajes',
+                '¡De cero a héroe y de héroe a cero!',
+                'Sé humilde con el desafío, no con el impacto social',
+                'Aleja el zoom (zoom-out). El juicio está en el bosque, no en los árboles',
+                'Cómo terminé siendo una excepción en el mejor hedge fund de la historia',
+                '¿Por qué 41OPS? Porque 42OPS ya estaba cogido',
+                'Por qué Twitter despidió a un alto porcentaje de la plantilla y todo salió bien',
+                'Nunca quise ser emprendedor',
+                'Creando la empresa en la que querías trabajar',
+                'Mi última década: un sudoku masivo, varias pruebas psicotécnicas avanzadas y ser resiliente al Juego del Mentiroso.',
+                'El "fuck you money" (dinero para mandar todo al carajo) no es "fuck you utility". Ten cuidado.'
+            ],
+            p2c2: [
+                'Bloques y píldoras que recibirás:',
+                'Estadística Computacional: La L en ML (Machine Learning). Tres tipos principales. Ciencia de ensayo y error vs impulsada por teoremas. La ciencia de datos como evolución de la Bioestadística, la Econometría, etc.',
+                'Estadística Tradicional. Supuestos básicos, distribuciones, MCO (Mínimos Cuadrados Ordinarios), variables ficticias (dummies)...',
+                'La miopía del reciente furor por la IA: IA = LLM. Sin embargo, LLM = RL (Aprendizaje por Refuerzo) + Redes Neuronales + UX sobre datos masivos.',
+                'L es y=f(x) + u; M son los condicionales (if-then). M1 vs M2',
+                '¿Por qué ahora los CEOs aceptan ayuda externa en tecnología de digitalización? Porque fracasaron intentándolo ellos mismos con consultores',
+                'IA, Cuántica y Blockchain, en general',
+                'Máquinas Aumentadas',
+                'AI OPS lo es todo',
+                'Habilidades clave: escritura, matemáticas y microeconomía para jugar el juego y no frustrarte, y creatividad para dar ese esfuerzo extra (ir más allá)',
+                'La Generación Z y la Generación X son las que corren más riesgo: actitud y edad en la era de la IA',
+                'Escribe rápido, lee despacio',
+                'Finanzas básicas de tu carrera: Optimizar para el VaR (Valor en Riesgo) vs para la Expectativa vs para Soñar',
+                'Si estás seguro de que eres tú quien va a ser ascendido, eventualmente podrías serlo. De lo contrario, es poco probable. Esto no siempre se trata del Valor del Producto Marginal del Trabajo',
+                'Distingue a los influyentes de los influencers: es toda una trampa',
+                'El FOMO es la consecuencia del marketing. Filtra la toxicidad de la información que recibes.'
+            ]
         }
     },
     newsroom: {
@@ -238,7 +313,8 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
             { name: 'Finovate: Innovador del Año', category: 'Finalista', project: 'Nuestro trabajo pionero en Agentic AI', year: '2025' },
             { name: 'Bankig Tech Awards: Mejor Tech del Futuro: IA y Datos', category: 'Ganador', project: 'Nuestra Plataforma Fractal', year: '2024' },
             { name: 'CogX: Mejor Innovación en Simulación', category: 'Ganador', project: 'Núcleo de nuestra Simulación VR', year: '2020' },
-            { name: 'Banking Tech Awards: Mejor Plataforma de Trading', category: 'Ganador', project: 'Tesis Doctoral de Sergio (UCL) en BBVA', year: '2017' }
+            { name: 'Banking Tech Awards: Mejor Plataforma de Trading', category: 'Ganador', project: 'Tesis Doctoral de Sergio (UCL) en BBVA', year: '2017' },
+            { name: 'UK EPSRC: Impact in the Digital Economy', category: 'Ganador', project: 'Calibración de Avatares como forma de minimizar el impacto negativo de la IA en el trabajo', year: '2015' }
         ]
     },
     common: {
