@@ -215,6 +215,14 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
         },
         items: [
             {
+                date: '2026/03/05',
+                company: '41OPS',
+                title: 'El SO de las empresas algorítmicas',
+                summary: 'La pregunta ya no es si las empresas se convertirán en ecosistemas algorítmicos. Lo harán o serán desplazadas por las que lo hagan. La pregunta es qué gobierna la inteligencia cuando llegan a ese punto. La respuesta es M2.',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/8b6df667-f3ba-466c-b59b-ba57f9a309aa',
+                isMain: true,
+            },
+            {
                 date: '2026/03/04',
                 company: 'SystematicMe',
                 title: 'Programa para Consejos de Administración',
@@ -243,7 +251,6 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
                 title: 'M2 · Defensa e Inteligencia',
                 summary: 'La capa adicional que hace que la IA agéntica sea gobernable y las plataformas de datos sean algorítmicas, completando el stack tecnológico que le falta a toda organización de defensa',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/0315ff27-32b8-47b2-a35c-588d313f03eb',
-                isFeatured: true,
             },
             {
                 date: '2026/03/01',
@@ -251,7 +258,7 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
                 title: 'La Arquitectura de Tres Anillos',
                 summary: 'La capa federada que le falta a la industria: entre la descentralización de la IA agéntica y la centralización de los sistemas legacy en producción',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/999358b8-a866-429d-8203-7389851b27cc',
-                isMain: true,
+                isFeatured: true,
             },
             {
                 date: '2026/02/28',

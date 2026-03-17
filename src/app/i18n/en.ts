@@ -215,6 +215,12 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
         },
         items: [
             {
+                date: '2026/03/05', company: '41OPS', title: 'The OS of the algorithmic company',
+                summary: 'The question is no longer whether enterprises will become algorithmic ecosystems. They will — or they will be displaced by those that do. The question is what governs the intelligence when they get there. The answer is M2.',
+                howAiSeesUs: 'https://claude.ai/public/artifacts/8b6df667-f3ba-466c-b59b-ba57f9a309aa',
+                isMain: true,
+            },
+            {
                 date: '2026/03/04', company: 'SystematicMe', title: 'Board Programme',
                 summary: 'In-person, co-founders only. The part of SystematicMe that cannot be industrialised - for boards that need criteria, not a certificate',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/f13b482c-d2f8-4f55-a7ca-0b563c9968ce',
@@ -235,13 +241,12 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
                 date: '2026/03/02', company: '41OPS', title: 'M2 · Defence & Intelligence',
                 summary: 'The extra layer that makes agentic AI governable and data platforms algorithmic, completing the tech stack missing in every defence organisation',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/0315ff27-32b8-47b2-a35c-588d313f03eb',
-                isFeatured: true,
             },
             {
                 date: '2026/03/01', company: 'Algorithmization', title: 'The Three-Ring Architecture',
                 summary: 'The federated layer the industry is missing: between the decentralisation of agentic AI and the centralisation of legacy systems in production',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/999358b8-a866-429d-8203-7389851b27cc',
-                isMain: true,
+                isFeatured: true,
             },
             {
                 date: '2026/02/28', company: 'SciTheWorld', title: 'Spin-offs',
