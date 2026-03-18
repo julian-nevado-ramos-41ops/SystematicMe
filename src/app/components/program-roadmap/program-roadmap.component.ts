@@ -113,6 +113,7 @@ interface Program {
     :host {
       display: block;
       width: 100%;
+      box-sizing: border-box;
       height: auto;
       margin-top: 10vh;
       padding: 4rem 5%;
@@ -169,6 +170,8 @@ interface Program {
     .program-block {
       margin-bottom: 4rem;
       width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .program-title {
@@ -190,6 +193,7 @@ interface Program {
       flex-direction: column;
       gap: 0.5rem;
       width: 100%;
+      max-width: 100%;
     }
 
     .roadmap-row {
@@ -222,10 +226,16 @@ interface Program {
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .col-content {
       line-height: 1.5;
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     :host ::ng-deep .col-content a {
@@ -420,11 +430,25 @@ interface Program {
     /* ─── Responsive ─── */
     @media (max-width: 1024px) {
       :host {
-        padding: 4rem 5%;
+        padding: 2rem 1rem;
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
       }
 
       .roadmap-layout {
         flex-direction: column;
+        gap: 0;
+        max-width: 100%;
+      }
+
+      .roadmap-tables {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
       }
 
       .roadmap-image {
@@ -442,16 +466,48 @@ interface Program {
         object-fit: contain;
         border-radius: 12px;
       }
-      
+
       .title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .program-title {
+        font-size: 1.4rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .program-block {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .roadmap-table {
+        max-width: 100%;
       }
 
       .roadmap-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        font-size: 0.95rem;
+      }
+
+      .roadmap-row.indent {
+        padding-left: 1rem;
         border-bottom: none;
+      }
+
+      .col-name {
+        font-size: 0.8rem;
+      }
+
+      .col-content {
+        font-size: 0.95rem;
       }
     }
   `

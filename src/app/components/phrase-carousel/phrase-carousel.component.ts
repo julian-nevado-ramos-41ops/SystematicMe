@@ -36,6 +36,7 @@ import { Component, ChangeDetectionStrategy, input, computed } from '@angular/co
     :host {
       display: block;
       width: 100%;
+      box-sizing: border-box;
     }
 
     .carousel-root {
@@ -123,12 +124,25 @@ import { Component, ChangeDetectionStrategy, input, computed } from '@angular/co
       user-select: none;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .carousel-root {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
         padding: 1.25rem 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .carousel-label {
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .carousel-wrapper {
+        mask-image: none;
+        -webkit-mask-image: none;
+        width: 100%;
       }
 
       .phrase-text {

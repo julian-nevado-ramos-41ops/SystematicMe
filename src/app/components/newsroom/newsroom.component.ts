@@ -403,8 +403,23 @@ export interface NewsItem {
 
     /* ─── Responsive ─── */
     @media (max-width: 1024px) {
+      :host {
+        box-sizing: border-box;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
       .featured-area {
         grid-template-columns: 1fr 1fr;
+        max-width: 100%;
+      }
+
+      .table-area {
+        max-width: 100%;
       }
     }
 
@@ -422,13 +437,95 @@ export interface NewsItem {
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       :host {
-        padding: 2.5rem 4%;
+        padding: 2rem 1rem;
       }
 
       .newsroom-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        letter-spacing: -1px;
+        word-break: break-word;
+      }
+
+      .featured-area {
+        gap: 1.5rem;
+      }
+
+      .featured-card-summary {
+        font-size: 0.9rem;
+      }
+
+      .main-news-title {
+        font-size: 1.4rem;
+      }
+
+      .news-summary-text {
+        font-size: 0.9rem;
+      }
+
+      /* ── Table → Card layout ── */
+      .news-table-wrapper {
+        overflow-x: visible;
+      }
+
+      .news-table thead {
+        display: none;
+      }
+
+      .news-table,
+      .news-table tbody {
+        display: block;
+        width: 100%;
+      }
+
+      .table-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+      }
+
+      .td {
+        display: block;
+        padding: 0;
+        text-align: left !important;
+        min-width: auto;
+      }
+
+      .td-date {
+        font-size: 0.8rem;
+        color: #888;
+        order: 1;
+      }
+
+      .td-company {
+        font-size: 0.78rem;
+        order: 2;
+        margin-bottom: 0.25rem;
+      }
+
+      .td-title {
+        font-size: 1rem;
+        font-weight: 600;
+        order: 3;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .td-summary {
+        display: none;
+      }
+
+      .td-ai {
+        order: 4;
+        margin-top: 0.25rem;
+      }
+
+      .see-more-link {
+        font-size: 0.85rem;
+        text-decoration: underline;
       }
     }
   `
