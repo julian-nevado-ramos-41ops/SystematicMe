@@ -82,7 +82,7 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
         }
     },
     roadmap: {
-        title: 'Programms roadmap',
+        title: 'Programs roadmap',
         joinModal: {
             title: 'Join Now',
             subtitle: 'Start your journey with SystematicMe',
