@@ -215,6 +215,11 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
         },
         items: [
             {
+                date: '2026/03/23',
+                company: '41OPS',
+                title: 'Hoja de Ruta para la Transformación de las Pymes',
+                summary: 'Cómo ayudamos a las pymes a seguir el estado del arte al menor coste: desde el uso compartido de infraestructura hasta la dedicación completa y la federación de PI.',
+            }, {
                 date: '2026/03/05',
                 company: '41OPS',
                 title: 'El SO de las empresas algorítmicas',
