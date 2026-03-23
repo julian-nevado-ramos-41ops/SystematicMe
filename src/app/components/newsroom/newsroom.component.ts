@@ -119,7 +119,7 @@ export interface NewsItem {
     :host {
       display: block;
       width: 100%;
-      padding: 4rem 5%;
+      padding: 4rem 5% 7rem 5%;
       font-family: 'Inter', sans-serif;
       color: #222;
       background-color: transparent;
