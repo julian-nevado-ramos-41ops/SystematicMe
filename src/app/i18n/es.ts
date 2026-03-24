@@ -222,7 +222,7 @@ Pero no hay necesidad de decidir ahora. Deja que las ideas se asienten. Vuelve c
             }, {
                 date: '2026/03/05',
                 company: '41OPS',
-                title: 'El SO de las empresas algorítmicas',
+                title: 'El SO de las Empresas Algorítmicas',
                 summary: 'La pregunta ya no es si las empresas se convertirán en ecosistemas algorítmicos. Lo harán o serán desplazadas por las que lo hagan. La pregunta es qué gobierna la inteligencia cuando llegan a ese punto. La respuesta es M2.',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/8b6df667-f3ba-466c-b59b-ba57f9a309aa',
                 isMain: true,

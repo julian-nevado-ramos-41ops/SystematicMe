@@ -220,7 +220,7 @@ But there is no need to decide now. Let the ideas settle. Return when you fully 
                 howAiSeesUs: "https://claude.ai/public/artifacts/763b80a6-0018-4c9d-b55e-2504ed206474"
             },
             {
-                date: '2026/03/05', company: '41OPS', title: 'The OS of the algorithmic company',
+                date: '2026/03/05', company: '41OPS', title: 'The OS of the Algorithmic Company',
                 summary: 'The question is no longer whether enterprises will become algorithmic ecosystems. They will — or they will be displaced by those that do. The question is what governs the intelligence when they get there. The answer is M2.',
                 howAiSeesUs: 'https://claude.ai/public/artifacts/8b6df667-f3ba-466c-b59b-ba57f9a309aa',
                 isMain: true,
